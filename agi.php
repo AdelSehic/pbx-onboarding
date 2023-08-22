@@ -37,7 +37,7 @@ for($exit = false; !$exit;){
             $exit = true;
             break;
         case 3:
-            $exit = false;
+            break;
         default:
             $agi->exec("PLAYBACK","confbridge-invalid");
     }
