@@ -15,7 +15,11 @@ ivr:
 $option = $agi->get_data("sekretarica", 20000, 1);
 switch ($option['result']){
     case 1:
-        $exten = $agi->get_data("vm-extension", 20000, 3);
+        $exten = $agi->get_data("vm-extension", 20000);
+        if ($exten['result']==$caller){
+            $agi->exec("PLAYBACK", "invalid");
+            $agi->hangup();
+        }
         $agi->set_variable("tocall", $exten['result']);
         $agi->set_variable("redirect", "1");
         break;
