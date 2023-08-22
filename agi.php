@@ -44,3 +44,21 @@ function pwcheck($pass, $agi){
     }
 }
 ?>
+
+
+
+/* DIALPLAN
+
+    [sets]
+
+    exten => 101,1,Dial(PJSIP/SOFTPHONE_A)
+    exten => 102,1,Dial(PJSIP/SOFTPHONE_B)
+
+    exten => 123,1,Noop(php ivr channel)
+        same => n,AGI(agi.php)
+        same => n,GotoIf($["${redirect}" = "1"]?${tocall},1:)
+        same => n,Hangup()
+
+    exten => i,1,Playback(invalid)
+
+*/
