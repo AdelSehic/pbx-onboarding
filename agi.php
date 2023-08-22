@@ -3,7 +3,7 @@
 require('phpagi.php');
 
 $agi = new AGI();
-$caller = "SOFTPHONE_B";
+$caller = $agi->get_variable('CALLERID(num)')['data'];
 $pass = $agi->database_get("password",$caller);
 
 $agi->answer();
