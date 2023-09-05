@@ -16,6 +16,7 @@ type Amigo struct {
 	Port     string
 	Username string
 	Secret   string
+	Cookie   *http.Cookie
 }
 
 func NewManager() *Amigo { return &Amigo{} }
@@ -42,8 +43,6 @@ func (ami *Amigo) SetConf(ip, port, user, secret string) error {
 
 func (ami *Amigo) Login() {
 
-	f, _ := os.Create("cookie.txt")
-
 	request := fmt.Sprintf("http://%s:%s/mxml?action=login&username=%s&secret=%s", ami.IP, ami.Port, ami.Username, ami.Secret)
 	resp, err := http.Get(request)
 	if err != nil {
@@ -51,31 +50,48 @@ func (ami *Amigo) Login() {
 	}
 	defer resp.Body.Close()
 
-	odg, _ := io.ReadAll(resp.Body)
-	fmt.Println(string(odg))
+	// odg, _ := io.ReadAll(resp.Body)
+	// fmt.Println(string(odg))
 
+	ami.cookieReciever(resp)
+}
+
+func (ami *Amigo) WaitEvent() {
+
+	client := &http.Client{}
+
+	url := fmt.Sprintf("http://%s:%s/mxml?action=waitevent", ami.IP, ami.Port)
+	request, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		log.Fatalf(err.Error())
+	}
+	request.AddCookie(ami.Cookie)
+
+	resp, err := client.Do(request)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	data, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	fmt.Println(string(data))
+}
+
+func (ami *Amigo) cookieReciever(resp *http.Response) {
 	cookies := resp.Cookies()
 	for _, ck := range cookies {
-		ckv := fmt.Sprintf("%s:%s\tFALSE\t/\tFALSE\t%d\t%s\t\"%s\"\n", ami.IP, ami.Port, time.Now().Add(time.Duration(ck.MaxAge)).Unix(), ck.Name, ck.Value)
-		f.Write([]byte(ckv))
+		ami.Cookie = ck
+		ami.Cookie.Path, ami.Cookie.Domain = "/", "false"
+		ami.saveCookie()
 	}
 }
 
-/*
-		format := `
-Name  string %s
-Value string %s
-
-Path       string %s
-Domain     string %s
-Expires    time.Time %s
-RawExpires string %s
-
-MaxAge   int %d
-Secure   bool %v
-HttpOnly bool %v\b
-Raw      string %s
-Unparsed []string %s
-`
-		fmt.Printf(format, ck.Name, ck.Value, ck.Path, ck.Domain, ck.Expires, ck.RawExpires, ck.MaxAge, ck.Secure, ck.HttpOnly, ck.Raw, ck.Unparsed)
-*/
+func (ami *Amigo) saveCookie() {
+	f, _ := os.Create("cookie.txt")
+	defer f.Close()
+	ckv := fmt.Sprintf("%s:%s\t%s\t%s\t%v\t%d\t%s\t\"%s\"\n", ami.IP, ami.Port, ami.Cookie.Domain, ami.Cookie.Path, ami.Cookie.Secure, time.Now().Add(time.Duration(ami.Cookie.MaxAge)).Unix(), ami.Cookie.Name, ami.Cookie.Value)
+	f.Write([]byte(ckv))
+}

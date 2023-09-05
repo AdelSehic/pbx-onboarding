@@ -12,4 +12,8 @@ func main() {
 		log.Fatalf(err.Error())
 	}
 	ami.Login()
+
+	for true {
+		ami.WaitEvent()
+	}
 }
