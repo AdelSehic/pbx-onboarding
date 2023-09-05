@@ -8,6 +8,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"regexp"
 	"time"
 )
 
@@ -17,9 +18,10 @@ type Amigo struct {
 	Username string
 	Secret   string
 	Cookie   *http.Cookie
+	Client   *http.Client
 }
 
-func NewManager() *Amigo { return &Amigo{} }
+func NewManager() *Amigo { return &Amigo{Client: &http.Client{}} }
 
 func (ami *Amigo) SetConf(ip, port, user, secret string) error {
 
@@ -41,33 +43,38 @@ func (ami *Amigo) SetConf(ip, port, user, secret string) error {
 	return nil
 }
 
-func (ami *Amigo) Login() {
+func (ami *Amigo) Login() error {
 
-	request := fmt.Sprintf("http://%s:%s/mxml?action=login&username=%s&secret=%s", ami.IP, ami.Port, ami.Username, ami.Secret)
+	request := fmt.Sprintf("http://%s:%s/rawman?action=login&username=%s&secret=%s", ami.IP, ami.Port, ami.Username, ami.Secret)
 	resp, err := http.Get(request)
 	if err != nil {
-		log.Fatal(err.Error())
+		return err
 	}
 	defer resp.Body.Close()
 
-	// odg, _ := io.ReadAll(resp.Body)
-	// fmt.Println(string(odg))
-
 	ami.cookieReciever(resp)
+
+	odg, _ := io.ReadAll(resp.Body)
+
+	reg := regexp.MustCompile(`Response: (.+)`)
+	response := reg.FindStringSubmatch(string(odg))
+	if response[1] == "Error" {
+		return errors.New("couldn't authenticate")
+	}
+
+	fmt.Println("Authentication successful")
+	return nil
 }
 
 func (ami *Amigo) WaitEvent() {
-
-	client := &http.Client{}
-
-	url := fmt.Sprintf("http://%s:%s/mxml?action=waitevent", ami.IP, ami.Port)
+	url := fmt.Sprintf("http://%s:%s/rawman?action=waitevent", ami.IP, ami.Port)
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		log.Fatalf(err.Error())
 	}
 	request.AddCookie(ami.Cookie)
 
-	resp, err := client.Do(request)
+	resp, err := ami.Client.Do(request)
 	if err != nil {
 		log.Fatal(err.Error())
 	}

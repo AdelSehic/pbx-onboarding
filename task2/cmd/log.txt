@@ -1,0 +1,160 @@
+Authentication successful
+Response: Success
+Message: Waiting for Event completed.
+
+Event: SuccessfulAuth
+Privilege: security,all
+EventTV: 2023-09-05T13:33:27.811+0200
+Severity: Informational
+Service: AMI
+EventVersion: 1
+AccountID: adel
+SessionID: 0x7f62e0002250
+LocalAddress: IPV4/TCP/0.0.0.0/8088
+RemoteAddress: IPV4/TCP/10.1.0.156/52800
+UsingPassword: 0
+SessionTV: 2023-09-05T13:33:27.811+0200
+
+Event: WaitEventComplete
+
+
+Response: Success
+Message: Waiting for Event completed.
+
+Event: ChallengeSent
+Privilege: security,all
+EventTV: 2023-09-05T13:33:30.759+0200
+Severity: Informational
+Service: PJSIP
+EventVersion: 1
+AccountID: SOFTPHONE_A
+SessionID: 9f0fe8a9dfb0a7ef
+LocalAddress: IPV4/UDP/127.0.0.1/5060
+RemoteAddress: IPV4/UDP/10.1.0.156/35395
+Challenge: 
+
+Event: WaitEventComplete
+
+
+Response: Success
+Message: Waiting for Event completed.
+
+Event: SuccessfulAuth
+Privilege: security,all
+EventTV: 2023-09-05T13:33:30.762+0200
+Severity: Informational
+Service: PJSIP
+EventVersion: 1
+AccountID: SOFTPHONE_A
+SessionID: 9f0fe8a9dfb0a7ef
+LocalAddress: IPV4/UDP/127.0.0.1/5060
+RemoteAddress: IPV4/UDP/10.1.0.156/35395
+UsingPassword: 1
+
+Event: WaitEventComplete
+
+
+Response: Success
+Message: Waiting for Event completed.
+
+Event: PeerStatus
+Privilege: system,all
+ChannelType: PJSIP
+Peer: PJSIP/SOFTPHONE_A
+PeerStatus: Reachable
+
+Event: WaitEventComplete
+
+
+Response: Success
+Message: Waiting for Event completed.
+
+Event: ContactStatus
+Privilege: system,all
+URI: sip:SOFTPHONE_A-0x55fe8e38a490@10.1.0.156:35395
+ContactStatus: NonQualified
+AOR: SOFTPHONE_A
+EndpointName: SOFTPHONE_A
+RoundtripUsec: 0
+
+Event: WaitEventComplete
+
+
+Response: Success
+Message: Waiting for Event completed.
+
+Event: DeviceStateChange
+Privilege: call,all
+Device: PJSIP/SOFTPHONE_A
+State: NOT_INUSE
+
+Event: WaitEventComplete
+
+
+Response: Success
+Message: Waiting for Event completed.
+
+Event: ChallengeSent
+Privilege: security,all
+EventTV: 2023-09-05T13:33:32.212+0200
+Severity: Informational
+Service: PJSIP
+EventVersion: 1
+AccountID: SOFTPHONE_A
+SessionID: 9f0fe8a9dfb0a7ef
+LocalAddress: IPV4/UDP/127.0.0.1/5060
+RemoteAddress: IPV4/UDP/10.1.0.156/35395
+Challenge: 
+
+Event: WaitEventComplete
+
+
+Response: Success
+Message: Waiting for Event completed.
+
+Event: SuccessfulAuth
+Privilege: security,all
+EventTV: 2023-09-05T13:33:32.217+0200
+Severity: Informational
+Service: PJSIP
+EventVersion: 1
+AccountID: SOFTPHONE_A
+SessionID: 9f0fe8a9dfb0a7ef
+LocalAddress: IPV4/UDP/127.0.0.1/5060
+RemoteAddress: IPV4/UDP/10.1.0.156/35395
+UsingPassword: 1
+
+Event: WaitEventComplete
+
+
+Response: Success
+Message: Waiting for Event completed.
+
+Event: PeerStatus
+Privilege: system,all
+ChannelType: PJSIP
+Peer: PJSIP/SOFTPHONE_A
+PeerStatus: Unreachable
+
+Event: ContactStatus
+Privilege: system,all
+URI: sip:SOFTPHONE_A-0x55fe8e38a490@10.1.0.156:35395
+ContactStatus: Removed
+AOR: SOFTPHONE_A
+EndpointName: SOFTPHONE_A
+RoundtripUsec: 0
+
+Event: WaitEventComplete
+
+
+Response: Success
+Message: Waiting for Event completed.
+
+Event: DeviceStateChange
+Privilege: call,all
+Device: PJSIP/SOFTPHONE_A
+State: UNAVAILABLE
+
+Event: WaitEventComplete
+
+
