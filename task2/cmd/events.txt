@@ -1,0 +1,78 @@
+SuccessfulAuth
+ChallengeSent
+PeerStatus
+DeviceStateChange
+Newchannel
+Newexten
+DialBegin
+NewConnectedLine
+Newstate
+BridgeCreate
+BridgeEnter
+VarSet
+RTCPSent
+DialState
+HangupRequest
+Hangup
+BridgeLeave
+
+
+SuccessfulAuth:
+    Event: SuccessfulAuth
+    EventTV: <value>
+    Severity: <value>
+    Service: <value>
+    EventVersion: <value>
+    AccountID: <value>
+    SessionID: <value>
+    LocalAddress: <value>
+    RemoteAddress: <value>
+    UsingPassword: <value>
+    [Module:] <value>
+    [SessionTV:] <value>
+
+ChallengeSent:
+    Event: ChallengeSent
+    EventTV: <value>
+    Severity: <value>
+    Service: <value>
+    EventVersion: <value>
+    AccountID: <value>
+    SessionID: <value>
+    LocalAddress: <value>
+    RemoteAddress: <value>
+    Challenge: <value>
+    [Module:] <value>
+    [SessionTV:] <value>
+
+PeerStatus:
+    Event: PeerStatus
+    ChannelType: <value>
+    Peer: <value>
+    PeerStatus: <value>
+    Cause: <value>
+    Address: <value>
+    Port: <value>
+    Time: <value>
+
+DeviceStateChange:
+    Event: DeviceStateChange
+    Device: <value>
+    State: <value>
+
+Newchannel:
+    Event: Newchannel
+    Channel: <value>
+    ChannelState: <value>
+    ChannelStateDesc: <value>
+    CallerIDNum: <value>
+    CallerIDName: <value>
+    ConnectedLineNum: <value>
+    ConnectedLineName: <value>
+    Language: <value>
+    AccountCode: <value>
+    Context: <value>
+    Exten: <value>
+    Priority: <value>
+    Uniqueid: <value>
+    Linkedid: <value>

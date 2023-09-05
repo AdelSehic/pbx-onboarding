@@ -6,7 +6,6 @@ import (
 )
 
 func main() {
-
 	ami := amigo.NewManager()
 	if err := ami.SetConf("10.1.0.228", "8088", "adel", "123"); err != nil {
 		log.Fatal(err.Error())
@@ -16,7 +15,9 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
-	for true {
-		ami.WaitEvent()
+	ch := ami.EventListener()
+
+	for event := range ch {
+		ami.EventHandler(event)
 	}
 }

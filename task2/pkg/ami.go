@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"strings"
 	"time"
 )
 
@@ -66,25 +67,47 @@ func (ami *Amigo) Login() error {
 	return nil
 }
 
-func (ami *Amigo) WaitEvent() {
+func (ami *Amigo) EventListener() chan *http.Response {
 	url := fmt.Sprintf("http://%s:%s/rawman?action=waitevent", ami.IP, ami.Port)
-	request, err := http.NewRequest("GET", url, nil)
-	if err != nil {
-		log.Fatalf(err.Error())
-	}
-	request.AddCookie(ami.Cookie)
+	ch := make(chan *http.Response)
 
-	resp, err := ami.Client.Do(request)
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	go func() {
+		for {
+			request, err := http.NewRequest("GET", url, nil)
+			if err != nil {
+				log.Fatalf(err.Error())
+			}
+			request.AddCookie(ami.Cookie)
 
+			resp, err := ami.Client.Do(request)
+			if err != nil {
+				log.Fatal(err.Error())
+			}
+			ch <- resp
+		}
+	}()
+
+	return ch
+}
+
+func (ami *Amigo) EventHandler(resp *http.Response) {
+
+	reg := regexp.MustCompile(`Event: (\w+)`)
 	data, err := io.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+	defer resp.Body.Close()
 
-	fmt.Println(string(data))
+	response := reg.FindStringSubmatch(string(data))
+	event := strings.Trim(response[1], "\n")
+
+	filter[event](string(data))
+
+	// if _, ok := filter[event]; !ok {
+	// 	return
+	// }
+	// fmt.Println(event)
 }
 
 func (ami *Amigo) cookieReciever(resp *http.Response) {
