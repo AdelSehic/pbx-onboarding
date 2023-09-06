@@ -21,15 +21,17 @@ func main() {
 	if err := ami.Login(); err != nil {
 		log.Fatal(err.Error())
 	}
-	ch := ami.EventListener()
+	evChan, errChan := ami.EventListener()
 
 	// ctx, cancel := context.WithCancel(context.Background())
 
 loop:
 	for {
 		select {
-		case event := <-ch:
+		case event := <-evChan:
 			ami.EventHandler(event)
+		case err := <-errChan:
+			log.Fatal(err.Error())
 		case <-stop:
 			ami.ListDevices()
 			break loop

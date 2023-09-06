@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"net"
 	"net/http"
 	"net/http/cookiejar"
@@ -31,8 +30,17 @@ func NewManager() *Amigo {
 	}
 }
 
-func (ami *Amigo) action(action string) string {
-	return fmt.Sprintf("http://%s:%s/rawman?action=%s", ami.IP, ami.Port, action)
+func (ami *Amigo) action(action string) (string, error) {
+	url := fmt.Sprintf("http://%s:%s/rawman?action=%s", ami.IP, ami.Port, action)
+
+	resp, err := ami.Client.Get(url)
+	if err != nil {
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	data, _ := io.ReadAll(resp.Body)
+	return string(data), nil
 }
 
 func (ami *Amigo) SetConf(ip, port, user, secret string) error {
@@ -55,17 +63,13 @@ func (ami *Amigo) SetConf(ip, port, user, secret string) error {
 }
 
 func (ami *Amigo) Login() error {
-	request := fmt.Sprintf("%s&username=%s&secret=%s", ami.action("login"), ami.Username, ami.Secret)
-	resp, err := ami.Client.Get(request)
+	resp, err := ami.action(fmt.Sprintf("%s&username=%s&secret=%s", "login", ami.Username, ami.Secret))
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
-
-	data, _ := io.ReadAll(resp.Body)
 
 	reg := regexp.MustCompile(`Response: (\w+)`)
-	response := reg.FindStringSubmatch(string(data))
+	response := reg.FindStringSubmatch(resp)
 	if response[1] == "Error" {
 		return errors.New("couldn't authenticate")
 	}
@@ -75,56 +79,45 @@ func (ami *Amigo) Login() error {
 	return nil
 }
 
-func (ami *Amigo) EventListener() chan *http.Response {
-	url := ami.action("waitevent")
-	ch := make(chan *http.Response)
+func (ami *Amigo) EventListener() (chan string, chan error) {
+	ch := make(chan string)
+	errchan := make(chan error)
 
 	go func() {
 		for {
-			resp, err := ami.Client.Get(url)
+			resp, err := ami.action("waitevent")
 			if err != nil {
-				log.Fatalf(err.Error())
+				errchan <- err
 			}
 			ch <- resp
 		}
 	}()
 
-	return ch
+	return ch, errchan
 }
 
-func (ami *Amigo) EventHandler(resp *http.Response) {
+func (ami *Amigo) EventHandler(resp string) {
 	reg := regexp.MustCompile(`Event: (\w+)`)
-	data, err := io.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-	defer resp.Body.Close()
-
-	event := reg.FindStringSubmatch(string(data))
-
+	event := reg.FindStringSubmatch(resp)
 	if function, ok := filter[event[1]]; ok {
-		function(string(data), ami)
+		function(resp, ami)
 	}
 }
 
-func (ami *Amigo) FetchDevices() {
-	resp, err := ami.Client.Get(ami.action("DeviceStateList"))
-	if err != nil {
-		log.Fatalf(err.Error())
-	}
-	defer resp.Body.Close()
-
-	data, err := io.ReadAll(resp.Body)
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-
-	events := strings.Split(string(data), "\r\n\r\n")
+func (ami *Amigo) FetchDevices() error {
 	reg := regexp.MustCompile(`: ([^\r\n]+)`)
+
+	resp, err := ami.action("DeviceStateList")
+	if err != nil {
+		return err
+	}
+	events := strings.Split(resp, "\r\n\r\n")
+
 	for i := 1; i < len(events)-2; i++ {
 		vals := reg.FindAllStringSubmatch(events[i], -1)
 		ami.Devices[vals[1][1]] = vals[2][1]
 	}
+	return nil
 }
 
 func (ami *Amigo) ListDevices() {
