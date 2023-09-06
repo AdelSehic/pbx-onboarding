@@ -21,6 +21,7 @@ func succAuth(event string, ami *Amigo) {
 }
 
 func devStateChange(event string, ami *Amigo) {
+
 	reg := regexp.MustCompile(`: ([^\r\n]+)`)
 	caught := reg.FindAllStringSubmatch(event, -1)
 

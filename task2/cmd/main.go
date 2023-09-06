@@ -21,10 +21,9 @@ func main() {
 	if err := ami.Login(); err != nil {
 		log.Fatal(err.Error())
 	}
+	ch := ami.EventListener()
 
 	// ctx, cancel := context.WithCancel(context.Background())
-
-	ch := ami.EventListener()
 
 loop:
 	for {
