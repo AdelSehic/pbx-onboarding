@@ -7,10 +7,7 @@ import (
 	"log"
 	"net"
 	"net/http"
-	"os"
 	"regexp"
-	"strings"
-	"time"
 )
 
 type Amigo struct {
@@ -20,9 +17,19 @@ type Amigo struct {
 	Secret   string
 	Cookie   *http.Cookie
 	Client   *http.Client
+	Devices  map[string]string
 }
 
-func NewManager() *Amigo { return &Amigo{Client: &http.Client{}} }
+func NewManager() *Amigo {
+	return &Amigo{
+		Client:  &http.Client{},
+		Devices: make(map[string]string),
+	}
+}
+
+func (ami *Amigo) actionUrl(action string) string {
+	return fmt.Sprintf("http://%s:%s/rawman?action=%s", ami.IP, ami.Port, action)
+}
 
 func (ami *Amigo) SetConf(ip, port, user, secret string) error {
 
@@ -46,7 +53,7 @@ func (ami *Amigo) SetConf(ip, port, user, secret string) error {
 
 func (ami *Amigo) Login() error {
 
-	request := fmt.Sprintf("http://%s:%s/rawman?action=login&username=%s&secret=%s", ami.IP, ami.Port, ami.Username, ami.Secret)
+	request := fmt.Sprintf("%s&username=%s&secret=%s", ami.actionUrl("login"), ami.Username, ami.Secret)
 	resp, err := http.Get(request)
 	if err != nil {
 		return err
@@ -57,7 +64,7 @@ func (ami *Amigo) Login() error {
 
 	odg, _ := io.ReadAll(resp.Body)
 
-	reg := regexp.MustCompile(`Response: (.+)`)
+	reg := regexp.MustCompile(`Response: (\w+)`)
 	response := reg.FindStringSubmatch(string(odg))
 	if response[1] == "Error" {
 		return errors.New("couldn't authenticate")
@@ -68,7 +75,7 @@ func (ami *Amigo) Login() error {
 }
 
 func (ami *Amigo) EventListener() chan *http.Response {
-	url := fmt.Sprintf("http://%s:%s/rawman?action=waitevent", ami.IP, ami.Port)
+	url := ami.actionUrl("waitevent")
 	ch := make(chan *http.Response)
 
 	go func() {
@@ -99,29 +106,20 @@ func (ami *Amigo) EventHandler(resp *http.Response) {
 	}
 	defer resp.Body.Close()
 
-	response := reg.FindStringSubmatch(string(data))
-	event := strings.Trim(response[1], "\n")
+	event := reg.FindStringSubmatch(string(data))
 
-	filter[event](string(data))
-
-	// if _, ok := filter[event]; !ok {
-	// 	return
-	// }
-	// fmt.Println(event)
-}
-
-func (ami *Amigo) cookieReciever(resp *http.Response) {
-	cookies := resp.Cookies()
-	for _, ck := range cookies {
-		ami.Cookie = ck
-		ami.Cookie.Path, ami.Cookie.Domain = "/", "false"
-		ami.saveCookie()
+	if function, ok := filter[event[1]]; ok {
+		function(string(data), ami)
 	}
 }
 
-func (ami *Amigo) saveCookie() {
-	f, _ := os.Create("cookie.txt")
-	defer f.Close()
-	ckv := fmt.Sprintf("%s:%s\t%s\t%s\t%v\t%d\t%s\t\"%s\"\n", ami.IP, ami.Port, ami.Cookie.Domain, ami.Cookie.Path, ami.Cookie.Secure, time.Now().Add(time.Duration(ami.Cookie.MaxAge)).Unix(), ami.Cookie.Name, ami.Cookie.Value)
-	f.Write([]byte(ckv))
+// func (ami *Amigo) FetchDevices() {
+// 	url := ami.actionUrl("DeviceStateList")
+
+// }
+
+func (ami *Amigo) ListDevices() {
+	for dev, state := range ami.Devices {
+		fmt.Printf("dev: %s, state: %s\n", dev, state)
+	}
 }
