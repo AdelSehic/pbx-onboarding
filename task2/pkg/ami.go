@@ -62,8 +62,6 @@ func (ami *Amigo) Login() error {
 	}
 	defer resp.Body.Close()
 
-	// ami.cookieReciever(resp)
-
 	data, _ := io.ReadAll(resp.Body)
 
 	reg := regexp.MustCompile(`Response: (\w+)`)
