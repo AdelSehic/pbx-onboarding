@@ -23,8 +23,6 @@ func main() {
 	}
 	evChan, errChan := ami.EventListener()
 
-	// ctx, cancel := context.WithCancel(context.Background())
-
 loop:
 	for {
 		select {

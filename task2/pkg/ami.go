@@ -6,9 +6,10 @@ import (
 	"io"
 	"net"
 	"net/http"
-	"net/http/cookiejar"
 	"regexp"
 	"strings"
+
+	persJar "github.com/juju/persistent-cookiejar"
 )
 
 type Amigo struct {
@@ -21,7 +22,7 @@ type Amigo struct {
 }
 
 func NewManager() *Amigo {
-	jar, _ := cookiejar.New(nil)
+	jar, _ := persJar.New(&persJar.Options{Filename: "./authcookie"})
 	return &Amigo{
 		Client: &http.Client{
 			Jar: jar,
@@ -40,6 +41,7 @@ func (ami *Amigo) action(action string) (string, error) {
 	defer resp.Body.Close()
 
 	data, _ := io.ReadAll(resp.Body)
+	ami.Client.Jar.(*persJar.Jar).Save()
 	return string(data), nil
 }
 
@@ -63,19 +65,29 @@ func (ami *Amigo) SetConf(ip, port, user, secret string) error {
 }
 
 func (ami *Amigo) Login() error {
-	resp, err := ami.action(fmt.Sprintf("%s&username=%s&secret=%s", "login", ami.Username, ami.Secret))
+	reg := regexp.MustCompile(`Response: (\w+)`)
+	defer ami.FetchDevices()
+
+	resp, err := ami.action("login")
 	if err != nil {
 		return err
 	}
-
-	reg := regexp.MustCompile(`Response: (\w+)`)
 	response := reg.FindStringSubmatch(resp)
+	if response[1] == "Success" {
+		fmt.Println("Authenticated using cookie, fetching devices...")
+		return nil
+	}
+
+	resp, err = ami.action(fmt.Sprintf("%s&username=%s&secret=%s", "login", ami.Username, ami.Secret))
+	if err != nil {
+		return err
+	}
+	response = reg.FindStringSubmatch(resp)
 	if response[1] == "Error" {
 		return errors.New("couldn't authenticate")
 	}
 
 	fmt.Println("Authentication successful, fetching devices...")
-	ami.FetchDevices()
 	return nil
 }
 
