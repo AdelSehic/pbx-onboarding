@@ -5,18 +5,16 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="script.js"></script>
     <style>
         .ui.container {
             text-align: center;
             width: 600px;
             margin-top: 100px;
         }
-
         h3 {
             margin-top: 0px;
         }
-
-
         .ui.grid .column {
             background-clip: content-box;
         }
@@ -55,23 +53,26 @@
             </div>
         </div>
 
-        <div class="ui feed">
-            <div class="event">
-                <div class="label">
-                    <img src="/images/avatar/small/jenny.jpg">
-                </div>
-                <div class="content">
-                    <div class="date">
-                        3 days ago
-                    </div>
-                    <div class="summary">
-                        You added <a>Jenny Hess</a> to your <a>coworker</a> group.
-                    </div>
-                </div>
-            </div>
+        <div class="ui feed" id="feed">
         </div>
 
     </div>
 </body>
+
+<template id="event">
+    <div class="event">
+        <div class="label">
+            <!-- <i class="user tiny icon"></i> -->
+        </div>
+        <div class="content">
+            <div class="date">
+                
+            </div>
+            <div class="summary">
+
+            </div>
+        </div>
+    </div>
+</template>
 
 </html>

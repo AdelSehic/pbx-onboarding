@@ -1,12 +1,15 @@
 package main
 
 import (
+	config "ami/configs"
 	amigo "ami/pkg"
 	"fmt"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -23,6 +26,11 @@ func main() {
 		log.Fatal(err.Error())
 	}
 	evChan, errChan := ami.EventListener()
+
+	router := gin.Default()
+	router.Use(config.CORSMiddleware())
+
+	router.GET("/init", amigo.PageLoad)
 
 loop:
 	for {
