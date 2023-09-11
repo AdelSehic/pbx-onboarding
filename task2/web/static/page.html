@@ -1,36 +1,77 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <style>
+        .ui.container {
+            text-align: center;
+            width: 600px;
+            margin-top: 100px;
+        }
+
+        h3 {
+            margin-top: 0px;
+        }
+
+
+        .ui.grid .column {
+            background-clip: content-box;
+        }
+    </style>
 </head>
+
 <body>
 
-    <div class="ui attached stackable menu">
-        <div class="ui container">
-          <a class="item">
-            <i class="home icon"></i> Home
-          </a>
-          <a class="item">
-            <i class="grid layout icon"></i> Browse
-          </a>
-          <a class="item">
-            <i class="mail icon"></i> Messages
-          </a>
-          <div class="ui simple dropdown item">
-            More
-            <i class="dropdown icon"></i>
-            <div class="menu">
-              <a class="item"><i class="edit icon"></i> Edit Profile</a>
-              <a class="item"><i class="globe icon"></i> Choose Language</a>
-              <a class="item"><i class="settings icon"></i> Account Settings</a>
-            </div>
-          </div>
-          <div class="right item">
-            <div class="ui input"><input type="text" placeholder="Search..."></div>
-          </div>
-        </div>
-      </div>
+    <div class="ui container">
 
+        <div class="ui segment">
+            <div class="ui two column stackable center aligned grid">
+                <div class="ui vertical divider">ami</div>
+                <div class="middle aligned row">
+                    <div class="column">
+                        <div class="ui statistic">
+                            <div class="value" id="devs">
+                                5,550
+                            </div>
+                            <div class="label">
+                                Active Devices
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui statistic">
+                            <div class="value" id="chans">
+                                5,550
+                            </div>
+                            <div class="label">
+                                Active channels
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui feed">
+            <div class="event">
+                <div class="label">
+                    <img src="/images/avatar/small/jenny.jpg">
+                </div>
+                <div class="content">
+                    <div class="date">
+                        3 days ago
+                    </div>
+                    <div class="summary">
+                        You added <a>Jenny Hess</a> to your <a>coworker</a> group.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </body>
-</html> 
+
+</html>
