@@ -1,15 +1,13 @@
 package main
 
 import (
-	config "ami/configs"
 	amigo "ami/pkg"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -27,10 +25,17 @@ func main() {
 	}
 	evChan, errChan := ami.EventListener()
 
-	router := gin.Default()
-	router.Use(config.CORSMiddleware())
+	http.HandleFunc("/init", func(w http.ResponseWriter, r *http.Request) {
+		data, err := ami.MarshallAMI()
+		if err != nil {
+			http.Error(w, "Failed to write JSON", http.StatusInternalServerError)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.Write(data)
+	})
 
-	router.GET("/init", amigo.PageLoad)
+	go http.ListenAndServe(":9999", nil)
 
 loop:
 	for {
