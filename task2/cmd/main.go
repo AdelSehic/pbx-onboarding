@@ -2,6 +2,7 @@ package main
 
 import (
 	amigo "ami/pkg"
+	"fmt"
 	"log"
 	"os"
 	"os/signal"
@@ -14,7 +15,7 @@ func main() {
 	signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM)
 
 	ami := amigo.NewManager()
-	if err := ami.SetConf("10.1.0.228", "8088", "adel", "123"); err != nil {
+	if err := ami.SetConf("192.168.0.11", "8088", "adel", "123"); err != nil {
 		log.Fatal(err.Error())
 	}
 
@@ -32,6 +33,7 @@ loop:
 			log.Fatal(err.Error())
 		case <-stop:
 			ami.ListDevices()
+			fmt.Printf("Number of active calls: %d\n", ami.Bridges)
 			break loop
 		}
 	}

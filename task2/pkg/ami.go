@@ -4,9 +4,11 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"net"
 	"net/http"
 	"regexp"
+	"strconv"
 	"strings"
 
 	persJar "github.com/juju/persistent-cookiejar"
@@ -19,6 +21,7 @@ type Amigo struct {
 	Secret   string
 	Client   *http.Client
 	Devices  map[string]string
+	Bridges  int
 }
 
 func NewManager() *Amigo {
@@ -67,6 +70,7 @@ func (ami *Amigo) SetConf(ip, port, user, secret string) error {
 func (ami *Amigo) Login() error {
 	reg := regexp.MustCompile(`Response: (\w+)`)
 	defer ami.FetchDevices()
+	defer ami.FetchBridgeCount()
 
 	resp, err := ami.action("login")
 	if err != nil {
@@ -86,8 +90,8 @@ func (ami *Amigo) Login() error {
 	if response[1] == "Error" {
 		return errors.New("couldn't authenticate")
 	}
-
 	fmt.Println("Authentication successful, fetching devices...")
+
 	return nil
 }
 
@@ -136,4 +140,13 @@ func (ami *Amigo) ListDevices() {
 	for dev, state := range ami.Devices {
 		fmt.Printf("dev: %s, state: %s\n", dev, state)
 	}
+}
+
+func (ami *Amigo) FetchBridgeCount() {
+	reg := regexp.MustCompile("ListItems: ([^\r\n])+")
+	resp, err := ami.action("bridgelist")
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	ami.Bridges, _ = strconv.Atoi(reg.FindStringSubmatch(resp)[1])
 }
