@@ -14,23 +14,19 @@ func main() {
 	signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM)
 
 	ami := amigo.NewManager()
-	if err := ami.SetConf("192.168.0.11", "8088", "adel", "123"); err != nil {
+	ami.SetConf("192.168.0.11", "5038", "adel", "123")
+	evChan, err := ami.Start()
+	if err != nil {
 		log.Fatal(err.Error())
 	}
-	if err := ami.Login(); err != nil {
-		log.Fatal(err.Error())
-	}
-	evChan, errChan := ami.EventListener()
-
-	ami.StartWS()
+	// evChan, errChan := ami.EventListener()
+	// ami.StartWS()
 
 loop:
 	for {
 		select {
 		case event := <-evChan:
 			ami.EventHandler(event)
-		case err := <-errChan:
-			log.Fatal(err.Error())
 		case <-stop:
 			break loop
 		}
