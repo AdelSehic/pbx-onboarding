@@ -1,6 +1,6 @@
 let socket = null;
 document.addEventListener("DOMContentLoaded", function () {
-    socket = new WebSocket("ws://127.0.0.1:9999/");
+    socket = new WebSocket("ws://109.175.26.24:9999/");
     socket.onopen = (data) => {
         console.log("Websocket connection established")
     }
@@ -22,6 +22,12 @@ document.addEventListener("DOMContentLoaded", function () {
             case "brcountupdate":
                 document.getElementById("chans").innerHTML = jmsg.data
                 break;
+            case "activedevs":
+                document.getElementById("devs").innerHTML = jmsg.data
+                break;
+            case "devstatechange":
+                console.log(jmsg.data)
+                break;
             default:
                 console.log("ERROR: unrecognized request")
         }
@@ -29,7 +35,10 @@ document.addEventListener("DOMContentLoaded", function () {
 })
 
 function setup(data) {
-    document.getElementById("devs").innerHTML = data.devicecount
+
+    console.log(data)
+
+    document.getElementById("devs").innerHTML = data.activedev
     document.getElementById("chans").innerHTML = data.bridgecount
 }
 

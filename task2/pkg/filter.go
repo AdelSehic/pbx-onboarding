@@ -26,11 +26,21 @@ func devStateChange(event []string, ami *Amigo) {
 	dev, state := trimInfo(event[2]), trimInfo(event[3])
 	log.Printf("%s is now %s\n", dev, state)
 
+	if trimInfo(event[3]) == "NOT_INUSE" {
+		ami.Active++
+	} else if ami.Active > 0 {
+		ami.Active--
+	}
+
 	ami.Hub.Broadcast <- Message{
 		Type: "devstatechange",
 		Data: ami.Devices[dev],
 	}
-	// ami.FetchBridgeCount()
+
+	ami.Hub.Broadcast <- Message{
+		Type: "activedevs",
+		Data: ami.Active,
+	}
 }
 
 func addBridge(event []string, ami *Amigo) {

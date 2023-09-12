@@ -18,9 +18,10 @@ type Message struct {
 }
 
 type FetchData struct {
-	DeviceCount int      `json:"devicecount"`
-	BridgeCount int      `json:"bridgecount"`
-	DeviceList  []Device `json:"devicelist"`
+	RegisteredDevices int      `json:"regdev"`
+	ActiveDevices     int      `json:"activedev"`
+	DeviceList        []Device `json:"devicelist"`
+	BridgeCount       int      `json:"bridgecount"`
 }
 
 type Device struct {
@@ -30,9 +31,10 @@ type Device struct {
 
 func (ami *Amigo) AMIData() *FetchData {
 	data := &FetchData{
-		BridgeCount: ami.Bridges,
-		DeviceCount: len(ami.Devices),
-		DeviceList:  make([]Device, 0, len(ami.Devices)),
+		RegisteredDevices: len(ami.Devices),
+		ActiveDevices:     ami.Active,
+		DeviceList:        make([]Device, 0, len(ami.Devices)),
+		BridgeCount:       ami.Bridges,
 	}
 	for key, value := range ami.Devices {
 		data.DeviceList = append(data.DeviceList, Device{Name: key, Status: value})

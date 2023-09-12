@@ -121,10 +121,12 @@ func (ami *Amigo) Initialize() error {
 
 	split := strings.Split(string(b), "\r\n")
 
+	ami.Active = 0
 	for i := 5; i < len(split)-6; i += 4 {
 		ami.Devices[trimInfo(split[i])] = trimInfo(split[i+1])
 		if trimInfo(split[i+1]) == "NOT_INUSE" {
-			ami.Active += 1
+			ami.Active++
+			fmt.Println("Active: ", ami.Active)
 		}
 	}
 
