@@ -2,9 +2,7 @@ package main
 
 import (
 	amigo "ami/pkg"
-	"fmt"
 	"log"
-	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -19,14 +17,12 @@ func main() {
 	if err := ami.SetConf("192.168.0.11", "8088", "adel", "123"); err != nil {
 		log.Fatal(err.Error())
 	}
-
 	if err := ami.Login(); err != nil {
 		log.Fatal(err.Error())
 	}
 	evChan, errChan := ami.EventListener()
 
-	ami.Setup()
-	go http.ListenAndServe(":9999", nil)
+	ami.StartWS()
 
 loop:
 	for {
@@ -36,8 +32,6 @@ loop:
 		case err := <-errChan:
 			log.Fatal(err.Error())
 		case <-stop:
-			ami.ListDevices()
-			fmt.Printf("Number of active calls: %d\n", ami.Bridges)
 			break loop
 		}
 	}

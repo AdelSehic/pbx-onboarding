@@ -1,5 +1,5 @@
 let socket = null;
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     socket = new WebSocket("ws://127.0.0.1:9999/");
     socket.onopen = (data) => {
         console.log("Websocket connection established")
@@ -12,9 +12,15 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     socket.onmessage = msg => {
         let jmsg = JSON.parse(msg.data)
-        switch (jmsg.type){
+        switch (jmsg.type) {
             case "setup":
                 setup(jmsg.data)
+                break;
+            case "devcountupdate":
+                document.getElementById("devs").innerHTML = jmsg.data
+                break;
+            case "brcountupdate":
+                document.getElementById("chans").innerHTML = jmsg.data
                 break;
             default:
                 console.log("ERROR: unrecognized request")
@@ -22,30 +28,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 })
 
-function setup(data){
+function setup(data) {
     document.getElementById("devs").innerHTML = data.devicecount
     document.getElementById("chans").innerHTML = data.bridgecount
-}
-
-function fetchData(url) {
-    fetch(url, {
-        headers: {
-            'Accept': 'application/json'
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-            const devCount = data.DeviceCount;
-            const brCount = data.BridgeCount;
-            // const devices = data.DeviceList;
-
-            document.getElementById("devs").innerHTML = devCount
-            document.getElementById("chans").innerHTML = brCount
-        })
-        .catch(error => {
-            console.log('Error: ', error)
-        })
 }
 
 function addEvent(message, icon) {

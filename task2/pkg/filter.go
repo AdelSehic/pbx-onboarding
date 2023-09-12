@@ -27,15 +27,27 @@ func devStateChange(event string, ami *Amigo) {
 	caught := reg.FindAllStringSubmatch(event, -1)
 
 	log.Printf("%s is now %s\n", caught[4][1], caught[5][1])
-
 	ami.Devices[caught[4][1]] = caught[5][1]
-	ami.FetchBridgeCount()
+
+	ami.Hub.Broadcast <- Message{
+		Type: "devstatechange",
+		Data: ami.Devices[caught[4][1]],
+	}
+	// ami.FetchBridgeCount()
 }
 
 func addBridge(event string, ami *Amigo) {
 	ami.Bridges++
+	ami.Hub.Broadcast <- Message{
+		Type: "brcountupdate",
+		Data: ami.Bridges,
+	}
 }
 
 func rmBridge(event string, ami *Amigo) {
 	ami.Bridges--
+	ami.Hub.Broadcast <- Message{
+		Type: "brcountupdate",
+		Data: ami.Bridges,
+	}
 }

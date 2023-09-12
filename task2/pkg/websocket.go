@@ -55,8 +55,11 @@ func (ami *Amigo) ConnectClient(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err.Error())
 		return
 	}
+	ami.Hub.AddClient(ws)
 }
 
-func (ami *Amigo) Setup() {
+func (ami *Amigo) StartWS() {
 	http.HandleFunc("/", ami.ConnectClient)
+	go http.ListenAndServe(":9999", nil)
+	ami.Hub.Start()
 }

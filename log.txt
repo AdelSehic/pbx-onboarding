@@ -1,0 +1,1878 @@
+Trying 192.168.0.11...
+Connected to 192.168.0.11.
+Escape character is '^]'.
+Asterisk Call Manager/9.0.0
+Response: Success
+Message: Authentication accepted
+
+Event: FullyBooted
+Privilege: system,all
+Uptime: 10373
+LastReload: 10373
+Status: Fully Booted
+
+Event: SuccessfulAuth
+Privilege: security,all
+EventTV: 2023-09-12T11:27:32.733+0200
+Severity: Informational
+Service: AMI
+EventVersion: 1
+AccountID: adel
+SessionID: 0x7fa564000b90
+LocalAddress: IPV4/TCP/0.0.0.0/5038
+RemoteAddress: IPV4/TCP/192.168.0.10/55856
+UsingPassword: 0
+SessionTV: 2023-09-12T11:27:32.733+0200
+
+Event: ChallengeSent
+Privilege: security,all
+EventTV: 2023-09-12T11:27:36.322+0200
+Severity: Informational
+Service: PJSIP
+EventVersion: 1
+AccountID: SOFTPHONE_B
+SessionID: j1IxPLMO5p
+LocalAddress: IPV4/UDP/192.168.0.11/5060
+RemoteAddress: IPV4/UDP/192.168.0.12/42077
+Challenge: 
+
+Event: SuccessfulAuth
+Privilege: security,all
+EventTV: 2023-09-12T11:27:36.378+0200
+Severity: Informational
+Service: PJSIP
+EventVersion: 1
+AccountID: SOFTPHONE_B
+SessionID: j1IxPLMO5p
+LocalAddress: IPV4/UDP/192.168.0.11/5060
+RemoteAddress: IPV4/UDP/192.168.0.12/42077
+UsingPassword: 1
+
+Event: ChallengeSent
+Privilege: security,all
+EventTV: 2023-09-12T11:27:38.113+0200
+Severity: Informational
+Service: PJSIP
+EventVersion: 1
+AccountID: SOFTPHONE_B
+SessionID: 0om610S2~n
+LocalAddress: IPV4/UDP/192.168.0.11/5060
+RemoteAddress: IPV4/UDP/192.168.0.12/42077
+Challenge: 
+
+Event: SuccessfulAuth
+Privilege: security,all
+EventTV: 2023-09-12T11:27:38.141+0200
+Severity: Informational
+Service: PJSIP
+EventVersion: 1
+AccountID: SOFTPHONE_B
+SessionID: 0om610S2~n
+LocalAddress: IPV4/UDP/192.168.0.11/5060
+RemoteAddress: IPV4/UDP/192.168.0.12/42077
+UsingPassword: 1
+
+Event: ChallengeSent
+Privilege: security,all
+EventTV: 2023-09-12T11:27:42.715+0200
+Severity: Informational
+Service: PJSIP
+EventVersion: 1
+AccountID: SOFTPHONE_B
+SessionID: 5fhZB01Uwm
+LocalAddress: IPV4/UDP/192.168.0.11/5060
+RemoteAddress: IPV4/UDP/192.168.0.12/42077
+Challenge: 
+
+Event: SuccessfulAuth
+Privilege: security,all
+EventTV: 2023-09-12T11:27:42.740+0200
+Severity: Informational
+Service: PJSIP
+EventVersion: 1
+AccountID: SOFTPHONE_B
+SessionID: 5fhZB01Uwm
+LocalAddress: IPV4/UDP/192.168.0.11/5060
+RemoteAddress: IPV4/UDP/192.168.0.12/42077
+UsingPassword: 1
+
+Event: Newchannel
+Privilege: call,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: SIPDOMAIN
+Value: 192.168.0.11
+
+Event: Newexten
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Extension: 101
+Application: Dial
+AppData: PJSIP/SOFTPHONE_A
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: DIALSTATUS
+Value: 
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: DIALEDPEERNUMBER
+Value: 
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: DIALEDPEERNAME
+Value: 
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: ANSWEREDTIME
+Value: 
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: ANSWEREDTIME_MS
+Value: 
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: DIALEDTIME
+Value: 
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: DIALEDTIME_MS
+Value: 
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: RINGTIME
+Value: 
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: RINGTIME_MS
+Value: 
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: PROGRESSTIME
+Value: 
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: PROGRESSTIME_MS
+Value: 
+
+Event: Newchannel
+Privilege: call,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: <unknown>
+CallerIDName: <unknown>
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: s
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: <unknown>
+CallerIDName: <unknown>
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: s
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: DIALEDPEERNUMBER
+Value: SOFTPHONE_A
+
+Event: Newexten
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Extension: 101
+Application: AppDial
+AppData: (Outgoing Line)
+
+Event: NewCallerid
+Privilege: call,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+CID-CallingPres: 0 (Presentation Allowed, Not Screened)
+
+Event: NewConnectedLine
+Privilege: call,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+
+Event: DialBegin
+Privilege: call,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+DestChannel: PJSIP/SOFTPHONE_A-0000000f
+DestChannelState: 0
+DestChannelStateDesc: Down
+DestCallerIDNum: 101
+DestCallerIDName: <unknown>
+DestConnectedLineNum: SOFTPHONE_B
+DestConnectedLineName: <unknown>
+DestLanguage: en
+DestAccountCode: 
+DestContext: sets
+DestExten: 101
+DestPriority: 1
+DestUniqueid: 1694510862.22
+DestLinkedid: 1694510862.21
+DialString: SOFTPHONE_A
+
+Event: NewConnectedLine
+Privilege: call,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+
+Event: Newstate
+Privilege: call,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 5
+ChannelStateDesc: Ringing
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: RINGTIME
+Value: 0
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: RINGTIME_MS
+Value: 499
+
+Event: DialState
+Privilege: call,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+DestChannel: PJSIP/SOFTPHONE_A-0000000f
+DestChannelState: 5
+DestChannelStateDesc: Ringing
+DestCallerIDNum: 101
+DestCallerIDName: <unknown>
+DestConnectedLineNum: SOFTPHONE_B
+DestConnectedLineName: <unknown>
+DestLanguage: en
+DestAccountCode: 
+DestContext: sets
+DestExten: 101
+DestPriority: 1
+DestUniqueid: 1694510862.22
+DestLinkedid: 1694510862.21
+DialStatus: RINGING
+
+Event: DeviceStateChange
+Privilege: call,all
+Device: PJSIP/SOFTPHONE_A
+State: RINGING
+
+Event: DeviceStateChange
+Privilege: call,all
+Device: PJSIP/SOFTPHONE_B
+State: INUSE
+
+Event: Newstate
+Privilege: call,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: DIALSTATUS
+Value: ANSWER
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: DIALEDPEERNAME
+Value: PJSIP/SOFTPHONE_A-0000000f
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: DIALEDPEERNUMBER
+Value: SOFTPHONE_A
+
+Event: DialEnd
+Privilege: call,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+DestChannel: PJSIP/SOFTPHONE_A-0000000f
+DestChannelState: 6
+DestChannelStateDesc: Up
+DestCallerIDNum: 101
+DestCallerIDName: <unknown>
+DestConnectedLineNum: SOFTPHONE_B
+DestConnectedLineName: <unknown>
+DestLanguage: en
+DestAccountCode: 
+DestContext: sets
+DestExten: 
+DestPriority: 1
+DestUniqueid: 1694510862.22
+DestLinkedid: 1694510862.21
+DialStatus: ANSWER
+
+Event: Newstate
+Privilege: call,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+
+Event: BridgeCreate
+Privilege: call,all
+BridgeUniqueid: 58f19576-ab69-4778-b233-5ed24eb62c03
+BridgeType: basic
+BridgeTechnology: simple_bridge
+BridgeCreator: <unknown>
+BridgeName: <unknown>
+BridgeNumChannels: 0
+BridgeVideoSourceMode: none
+
+Event: Newexten
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Extension: 
+Application: AppDial
+AppData: (Outgoing Line)
+
+Event: BridgeEnter
+Privilege: call,all
+BridgeUniqueid: 58f19576-ab69-4778-b233-5ed24eb62c03
+BridgeType: basic
+BridgeTechnology: simple_bridge
+BridgeCreator: <unknown>
+BridgeName: <unknown>
+BridgeNumChannels: 1
+BridgeVideoSourceMode: none
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+
+Event: BridgeEnter
+Privilege: call,all
+BridgeUniqueid: 58f19576-ab69-4778-b233-5ed24eb62c03
+BridgeType: basic
+BridgeTechnology: simple_bridge
+BridgeCreator: <unknown>
+BridgeName: <unknown>
+BridgeNumChannels: 2
+BridgeVideoSourceMode: none
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: BRIDGEPEER
+Value: PJSIP/SOFTPHONE_A-0000000f
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: BRIDGEPVTCALLID
+Value: 660d2574-7909-4e9c-80d2-e131661c31ba
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: BRIDGEPEER
+Value: PJSIP/SOFTPHONE_B-0000000e
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: BRIDGEPVTCALLID
+Value: 5fhZB01Uwm
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: BRIDGEPEER
+Value: PJSIP/SOFTPHONE_A-0000000f
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: BRIDGEPVTCALLID
+Value: 660d2574-7909-4e9c-80d2-e131661c31ba
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: BRIDGEPEER
+Value: PJSIP/SOFTPHONE_B-0000000e
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: BRIDGEPVTCALLID
+Value: 5fhZB01Uwm
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: BRIDGEPEER
+Value: PJSIP/SOFTPHONE_A-0000000f
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: BRIDGEPVTCALLID
+Value: 660d2574-7909-4e9c-80d2-e131661c31ba
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: BRIDGEPEER
+Value: PJSIP/SOFTPHONE_B-0000000e
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: BRIDGEPVTCALLID
+Value: 5fhZB01Uwm
+
+Event: DeviceStateChange
+Privilege: call,all
+Device: PJSIP/SOFTPHONE_A
+State: INUSE
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: BRIDGEPEER
+Value: PJSIP/SOFTPHONE_A-0000000f
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: BRIDGEPVTCALLID
+Value: 660d2574-7909-4e9c-80d2-e131661c31ba
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: BRIDGEPEER
+Value: PJSIP/SOFTPHONE_B-0000000e
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: BRIDGEPVTCALLID
+Value: 5fhZB01Uwm
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: BRIDGEPEER
+Value: PJSIP/SOFTPHONE_A-0000000f
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: BRIDGEPVTCALLID
+Value: 660d2574-7909-4e9c-80d2-e131661c31ba
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: BRIDGEPEER
+Value: PJSIP/SOFTPHONE_B-0000000e
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: BRIDGEPVTCALLID
+Value: 5fhZB01Uwm
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOS
+Value: ssrc=1007650788;themssrc=3721526280;lp=0;rxjitter=0.000000;rxcount=15;txjitter=0.000000;txcount=6;rlp=0;rtt=0.000000;rxmes=0.000000;txmes=0.000000
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOSBRIDGED
+Value: ssrc=1007650788;themssrc=3721526280;lp=0;rxjitter=0.000000;rxcount=15;txjitter=0.000000;txcount=6;rlp=0;rtt=0.000000;rxmes=0.000000;txmes=0.000000
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOSJITTER
+Value: minrxjitter=000.000000;maxrxjitter=000.000000;avgrxjitter=000.000000;stdevrxjitter=000.000000;mintxjitter=000.000000;maxtxjitter=000.000000;avgtxjitter=000.000000;stdevtxjitter=000.000000;
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOSJITTERBRIDGED
+Value: minrxjitter=000.000000;maxrxjitter=000.000000;avgrxjitter=000.000000;stdevrxjitter=000.000000;mintxjitter=000.000000;maxtxjitter=000.000000;avgtxjitter=000.000000;stdevtxjitter=000.000000;
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOSLOSS
+Value:   minrxlost=000.000000;  maxrxlost=000.000000;  avgrxlost=000.000000;  stdevrxlost=000.000000;  mintxlost=000.000000;  maxtxlost=000.000000;  avgtxlost=000.000000;  stdevtxlost=000.000000;
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOSLOSSBRIDGED
+Value:   minrxlost=000.000000;  maxrxlost=000.000000;  avgrxlost=000.000000;  stdevrxlost=000.000000;  mintxlost=000.000000;  maxtxlost=000.000000;  avgtxlost=000.000000;  stdevtxlost=000.000000;
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOSRTT
+Value:      minrtt=000.000000;     maxrtt=000.000000;     avgrtt=000.000000;     stdevrtt=000.000000;
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOSRTTBRIDGED
+Value:      minrtt=000.000000;     maxrtt=000.000000;     avgrtt=000.000000;     stdevrtt=000.000000;
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOSMES
+Value:    minrxmes=000.000000;   maxrxmes=000.000000;   avgrxmes=000.000000;   stdevrxmes=000.000000;   mintxmes=000.000000;   maxtxmes=000.000000;   avgtxmes=000.000000;   stdevtxmes=000.000000;
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOSMESBRIDGED
+Value:    minrxmes=000.000000;   maxrxmes=000.000000;   avgrxmes=000.000000;   stdevrxmes=000.000000;   mintxmes=000.000000;   maxtxmes=000.000000;   avgtxmes=000.000000;   stdevtxmes=000.000000;
+
+Event: HangupRequest
+Privilege: call,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: BRIDGEPEER
+Value: 
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: BRIDGEPVTCALLID
+Value: 
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: BRIDGEPEER
+Value: 
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: BRIDGEPVTCALLID
+Value: 
+
+Event: BridgeLeave
+Privilege: call,all
+BridgeUniqueid: 58f19576-ab69-4778-b233-5ed24eb62c03
+BridgeType: basic
+BridgeTechnology: native_rtp
+BridgeCreator: <unknown>
+BridgeName: <unknown>
+BridgeNumChannels: 1
+BridgeVideoSourceMode: none
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: ANSWEREDTIME
+Value: 4
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: ANSWEREDTIME_MS
+Value: 4868
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: DIALEDTIME
+Value: 7
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: DIALEDTIME_MS
+Value: 7619
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: DIALSTATUS
+Value: ANSWER
+
+Event: SoftHangupRequest
+Privilege: call,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Cause: 16
+
+Event: BridgeLeave
+Privilege: call,all
+BridgeUniqueid: 58f19576-ab69-4778-b233-5ed24eb62c03
+BridgeType: basic
+BridgeTechnology: native_rtp
+BridgeCreator: <unknown>
+BridgeName: <unknown>
+BridgeNumChannels: 0
+BridgeVideoSourceMode: none
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOS
+Value: ssrc=1007650788;themssrc=3721526280;lp=0;rxjitter=0.000000;rxcount=15;txjitter=0.000000;txcount=6;rlp=0;rtt=0.000000;rxmes=0.000000;txmes=0.000000
+
+Event: BridgeDestroy
+Privilege: call,all
+BridgeUniqueid: 58f19576-ab69-4778-b233-5ed24eb62c03
+BridgeType: basic
+BridgeTechnology: native_rtp
+BridgeCreator: <unknown>
+BridgeName: <unknown>
+BridgeNumChannels: 0
+BridgeVideoSourceMode: none
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOSJITTER
+Value: minrxjitter=000.000000;maxrxjitter=000.000000;avgrxjitter=000.000000;stdevrxjitter=000.000000;mintxjitter=000.000000;maxtxjitter=000.000000;avgtxjitter=000.000000;stdevtxjitter=000.000000;
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOSLOSS
+Value:   minrxlost=000.000000;  maxrxlost=000.000000;  avgrxlost=000.000000;  stdevrxlost=000.000000;  mintxlost=000.000000;  maxtxlost=000.000000;  avgtxlost=000.000000;  stdevtxlost=000.000000;
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOSRTT
+Value:      minrtt=000.000000;     maxrtt=000.000000;     avgrtt=000.000000;     stdevrtt=000.000000;
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOSMES
+Value:    minrxmes=000.000000;   maxrxmes=000.000000;   avgrxmes=000.000000;   stdevrxmes=000.000000;   mintxmes=000.000000;   maxtxmes=000.000000;   avgtxmes=000.000000;   stdevtxmes=000.000000;
+
+Event: Hangup
+Privilege: call,all
+Channel: PJSIP/SOFTPHONE_B-0000000e
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: SOFTPHONE_B
+CallerIDName: <unknown>
+ConnectedLineNum: 101
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 101
+Priority: 1
+Uniqueid: 1694510862.21
+Linkedid: 1694510862.21
+Cause: 16
+Cause-txt: Normal Clearing
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOS
+Value: ssrc=2003275638;themssrc=2757252862;lp=0;rxjitter=0.000000;rxcount=6;txjitter=0.000000;txcount=15;rlp=0;rtt=0.000000;rxmes=0.000000;txmes=0.000000
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOSJITTER
+Value: minrxjitter=000.000000;maxrxjitter=000.000000;avgrxjitter=000.000000;stdevrxjitter=000.000000;mintxjitter=000.000000;maxtxjitter=000.000000;avgtxjitter=000.000000;stdevtxjitter=000.000000;
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOSLOSS
+Value:   minrxlost=000.000000;  maxrxlost=000.000000;  avgrxlost=000.000000;  stdevrxlost=000.000000;  mintxlost=000.000000;  maxtxlost=000.000000;  avgtxlost=000.000000;  stdevtxlost=000.000000;
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOSRTT
+Value:      minrtt=000.000000;     maxrtt=000.000000;     avgrtt=000.000000;     stdevrtt=000.000000;
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Variable: RTPAUDIOQOSMES
+Value:    minrxmes=000.000000;   maxrxmes=000.000000;   avgrxmes=000.000000;   stdevrxmes=000.000000;   mintxmes=000.000000;   maxtxmes=000.000000;   avgtxmes=000.000000;   stdevtxmes=000.000000;
+
+Event: Hangup
+Privilege: call,all
+Channel: PJSIP/SOFTPHONE_A-0000000f
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: <unknown>
+ConnectedLineNum: SOFTPHONE_B
+ConnectedLineName: <unknown>
+Language: en
+AccountCode: 
+Context: sets
+Exten: 
+Priority: 1
+Uniqueid: 1694510862.22
+Linkedid: 1694510862.21
+Cause: 16
+Cause-txt: Normal Clearing
+
+Event: DeviceStateChange
+Privilege: call,all
+Device: PJSIP/SOFTPHONE_B
+State: NOT_INUSE
+
+Event: DeviceStateChange
+Privilege: call,all
+Device: PJSIP/SOFTPHONE_A
+State: NOT_INUSE
+

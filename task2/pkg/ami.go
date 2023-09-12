@@ -19,9 +19,10 @@ type Amigo struct {
 	Port     string
 	Username string
 	Secret   string
-	Client   *http.Client
 	Devices  map[string]string
 	Bridges  int
+	Client   *http.Client
+	Hub      *WSHub
 }
 
 func NewManager() *Amigo {
@@ -31,6 +32,7 @@ func NewManager() *Amigo {
 			Jar: jar,
 		},
 		Devices: make(map[string]string),
+		Hub:     NewHub(),
 	}
 }
 
@@ -96,7 +98,7 @@ func (ami *Amigo) Login() error {
 }
 
 func (ami *Amigo) EventListener() (chan string, chan error) {
-	ch := make(chan string)
+	ch := make(chan string, 100)
 	errchan := make(chan error)
 
 	go func() {
@@ -113,7 +115,7 @@ func (ami *Amigo) EventListener() (chan string, chan error) {
 }
 
 func (ami *Amigo) EventHandler(resp string) {
-	reg := regexp.MustCompile(`Event: (\w+)`)
+	reg := regexp.MustCompile(`Event: ([^\r\n]+)`)
 	event := reg.FindStringSubmatch(resp)
 	if function, ok := filter[event[1]]; ok {
 		function(resp, ami)
@@ -134,12 +136,6 @@ func (ami *Amigo) FetchDevices() error {
 		ami.Devices[vals[1][1]] = vals[2][1]
 	}
 	return nil
-}
-
-func (ami *Amigo) ListDevices() {
-	for dev, state := range ami.Devices {
-		fmt.Printf("dev: %s, state: %s\n", dev, state)
-	}
 }
 
 func (ami *Amigo) FetchBridgeCount() {
