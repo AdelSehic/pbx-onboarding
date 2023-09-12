@@ -1,4 +1,31 @@
-window.onload = fetchData("http://127.0.0.1:9999/init")
+let socket = null;
+document.addEventListener("DOMContentLoaded", function() {
+    socket = new WebSocket("ws://127.0.0.1:9999/");
+    socket.onopen = (data) => {
+        console.log("Websocket connection established")
+    }
+    socket.onclose = () => {
+        console.log("Websocket connection closed")
+    }
+    socket.onerror = error => {
+        console.log(error)
+    }
+    socket.onmessage = msg => {
+        let jmsg = JSON.parse(msg.data)
+        switch (jmsg.type){
+            case "setup":
+                setup(jmsg.data)
+                break;
+            default:
+                console.log("ERROR: unrecognized request")
+        }
+    }
+})
+
+function setup(data){
+    document.getElementById("devs").innerHTML = data.devicecount
+    document.getElementById("chans").innerHTML = data.bridgecount
+}
 
 function fetchData(url) {
     fetch(url, {

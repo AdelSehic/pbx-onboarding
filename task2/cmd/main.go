@@ -25,16 +25,7 @@ func main() {
 	}
 	evChan, errChan := ami.EventListener()
 
-	http.HandleFunc("/init", func(w http.ResponseWriter, r *http.Request) {
-		data, err := ami.MarshallAMI()
-		if err != nil {
-			http.Error(w, "Failed to write JSON", http.StatusInternalServerError)
-			return
-		}
-		w.Header().Set("Content-Type", "application/json")
-		w.Write(data)
-	})
-
+	ami.Setup()
 	go http.ListenAndServe(":9999", nil)
 
 loop:
