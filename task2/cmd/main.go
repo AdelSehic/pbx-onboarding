@@ -15,6 +15,7 @@ func main() {
 
 	ami := amigo.NewManager()
 	ami.SetConf("192.168.0.11", "5038", "adel", "123")
+
 	evChan, err := ami.Start()
 	if err != nil {
 		log.Fatal(err.Error())
@@ -22,11 +23,11 @@ func main() {
 	ami.StartWS()
 
 loop:
+
 	for {
 		select {
 		case event := <-evChan:
 			ami.EventHandler(event)
-			// fmt.Println(event)
 		case <-stop:
 			break loop
 		}

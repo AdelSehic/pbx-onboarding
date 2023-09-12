@@ -4,7 +4,11 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
+	"io"
 	"net"
+	"net/http"
+	"net/http/cookiejar"
+	"strconv"
 	"strings"
 )
 
@@ -14,9 +18,9 @@ type Amigo struct {
 	Username string
 	Secret   string
 	Conn     net.Conn
-	Builder  strings.Builder
 	Reader   *bufio.Reader
 	Devices  map[string]string
+	Active   int
 	Bridges  int
 	Hub      *WSHub
 }
@@ -47,8 +51,7 @@ func (ami *Amigo) SetConf(ip, port, user, secret string) error {
 }
 
 func (ami *Amigo) Start() (chan []string, error) {
-	// defer ami.FetchDevices()
-	// defer ami.FetchBridgeCount()
+	ami.Initialize()
 	var err error
 
 	ami.Conn, err = net.Dial("tcp", ami.IP+":"+ami.Port)
@@ -63,8 +66,13 @@ func (ami *Amigo) Start() (chan []string, error) {
 	}
 	ami.Reader = bufio.NewReader(ami.Conn)
 
-	ev := make(chan []string)
+	// consume initial response
+	for ami.Reader.Buffered() > 0 {
+		response, _ := ami.Reader.ReadString('\n')
+		fmt.Println(response)
+	}
 
+	ev := make(chan []string)
 	go ami.EventListener(ev)
 
 	return ev, nil
@@ -91,47 +99,44 @@ func (ami *Amigo) EventHandler(resp []string) {
 	}
 }
 
-func (ami *Amigo) Action(action string) (string, error) {
-	request := fmt.Sprintf("Action: %s\r\n\r\n", action)
-
-	_, err := ami.Conn.Write([]byte(request))
-	if err != nil {
-		return "", err
+func (ami *Amigo) Initialize() error {
+	jar, _ := cookiejar.New(nil)
+	client := &http.Client{
+		Jar: jar,
 	}
 
-	for {
-		response, _ := ami.Reader.ReadString('\n')
-		ami.Builder.WriteString(response)
+	url := fmt.Sprintf("http://%s:8088/rawman?action=login&username=%s&secret=%s", ami.IP, ami.Username, ami.Secret)
 
-		if strings.TrimSpace(response) == "" {
-			temp := ami.Builder.String()
-			ami.Builder.Reset()
-			return temp, nil
+	_, err := client.Get(url)
+	if err != nil {
+		return err
+	}
+
+	url = fmt.Sprintf("http://%s:8088/rawman?action=devicestatelist", ami.IP)
+	devs, err := client.Get(url)
+	if err != nil {
+		return err
+	}
+	b, _ := io.ReadAll(devs.Body)
+
+	split := strings.Split(string(b), "\r\n")
+
+	for i := 5; i < len(split)-6; i += 4 {
+		ami.Devices[trimInfo(split[i])] = trimInfo(split[i+1])
+		if trimInfo(split[i+1]) == "NOT_INUSE" {
+			ami.Active += 1
 		}
 	}
+
+	url = fmt.Sprintf("http://%s:8088/rawman?action=bridgelist", ami.IP)
+	brs, err := client.Get(url)
+	if err != nil {
+		return err
+	}
+	b, _ = io.ReadAll(brs.Body)
+
+	split = strings.Split(string(b), "\r\n")
+	ami.Bridges, _ = strconv.Atoi(trimInfo(split[len(split)-3]))
+
+	return nil
 }
-
-// func (ami *Amigo) FetchDevices() error {
-// 	reg := regexp.MustCompile(`: ([^\r\n]+)`)
-
-// 	resp, err := ami.action("DeviceStateList")
-// 	if err != nil {
-// 		return err
-// 	}
-// 	events := strings.Split(resp, "\r\n\r\n")
-
-// 	for i := 1; i < len(events)-2; i++ {
-// 		vals := reg.FindAllStringSubmatch(events[i], -1)
-// 		ami.Devices[vals[1][1]] = vals[2][1]
-// 	}
-// 	return nil
-// }
-
-// func (ami *Amigo) FetchBridgeCount() {
-// 	reg := regexp.MustCompile("ListItems: ([^\r\n])+")
-// 	resp, err := ami.action("bridgelist")
-// 	if err != nil {
-// 		log.Fatal(err.Error())
-// 	}
-// 	ami.Bridges, _ = strconv.Atoi(reg.FindStringSubmatch(resp)[1])
-// }
