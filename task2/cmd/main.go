@@ -19,8 +19,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	// evChan, errChan := ami.EventListener()
-	// ami.StartWS()
+	ami.StartWS()
 
 loop:
 	for {

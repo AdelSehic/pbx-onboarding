@@ -1,6 +1,7 @@
 package amigo
 
 import (
+	"fmt"
 	"log"
 	"strings"
 )
@@ -12,8 +13,8 @@ func trimInfo(line string) string {
 var filter = map[string]func([]string, *Amigo){
 	"SuccessfulAuth":    succAuth,
 	"DeviceStateChange": devStateChange,
-	// "BridgeCreate":      addBridge,
-	// "BridgeDestroy":     rmBridge,
+	"BridgeCreate":      addBridge,
+	"BridgeDestroy":     rmBridge,
 }
 
 func succAuth(event []string, ami *Amigo) {
@@ -22,7 +23,7 @@ func succAuth(event []string, ami *Amigo) {
 }
 
 func devStateChange(event []string, ami *Amigo) {
-	dev, state := trimInfo(event[1]), trimInfo(event[2])
+	dev, state := trimInfo(event[2]), trimInfo(event[3])
 	log.Printf("%s is now %s\n", dev, state)
 
 	ami.Hub.Broadcast <- Message{
@@ -32,18 +33,20 @@ func devStateChange(event []string, ami *Amigo) {
 	// ami.FetchBridgeCount()
 }
 
-// func addBridge(event []string, ami *Amigo) {
-// 	ami.Bridges++
-// 	ami.Hub.Broadcast <- Message{
-// 		Type: "brcountupdate",
-// 		Data: ami.Bridges,
-// 	}
-// }
+func addBridge(event []string, ami *Amigo) {
+	ami.Bridges++
+	fmt.Println("Bridge created")
+	ami.Hub.Broadcast <- Message{
+		Type: "brcountupdate",
+		Data: ami.Bridges,
+	}
+}
 
-// func rmBridge(event []string, ami *Amigo) {
-// 	ami.Bridges--
-// 	ami.Hub.Broadcast <- Message{
-// 		Type: "brcountupdate",
-// 		Data: ami.Bridges,
-// 	}
-// }
+func rmBridge(event []string, ami *Amigo) {
+	ami.Bridges--
+	fmt.Println("Bridge destroyed")
+	ami.Hub.Broadcast <- Message{
+		Type: "brcountupdate",
+		Data: ami.Bridges,
+	}
+}
