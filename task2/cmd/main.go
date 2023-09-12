@@ -27,6 +27,7 @@ loop:
 		select {
 		case event := <-evChan:
 			ami.EventHandler(event)
+			// fmt.Println(event)
 		case <-stop:
 			break loop
 		}

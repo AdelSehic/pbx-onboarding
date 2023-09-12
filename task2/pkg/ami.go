@@ -46,7 +46,7 @@ func (ami *Amigo) SetConf(ip, port, user, secret string) error {
 	return nil
 }
 
-func (ami *Amigo) Start() (chan string, error) {
+func (ami *Amigo) Start() (chan []string, error) {
 	// defer ami.FetchDevices()
 	// defer ami.FetchBridgeCount()
 	var err error
@@ -63,46 +63,32 @@ func (ami *Amigo) Start() (chan string, error) {
 	}
 	ami.Reader = bufio.NewReader(ami.Conn)
 
-	ev := make(chan string)
+	ev := make(chan []string)
 
 	go ami.EventListener(ev)
 
 	return ev, nil
 }
 
-func (ami *Amigo) EventListener(ev chan string) {
+func (ami *Amigo) EventListener(ev chan []string) {
 	for {
+		temp := make([]string, 0, 15)
 		for {
 			response, _ := ami.Reader.ReadString('\n')
-			ami.Builder.Write([]byte(response))
+			temp = append(temp, response)
 			if strings.TrimSpace(response) == "" {
-				ev <- ami.Builder.String()
-				ami.Builder.Reset()
+				ev <- temp
 				break
 			}
 		}
 	}
 }
 
-func (ami *Amigo) EventHandler(resp string) {
-	event := extractEventName(resp)
-	fmt.Printf("Caught event: %s\n", event)
+func (ami *Amigo) EventHandler(resp []string) {
+	event := trimInfo(resp[0])
 	if function, ok := filter[event]; ok {
 		function(resp, ami)
 	}
-}
-
-func extractEventName(eventData string) string {
-	startIndex := strings.Index(eventData, "Event:")
-	if startIndex == -1 {
-		return ""
-	}
-	endIndex := strings.Index(eventData[startIndex:], "\r\n")
-	if endIndex == -1 {
-		return ""
-	}
-	eventName := eventData[startIndex+7 : startIndex+endIndex]
-	return strings.TrimSpace(eventName)
 }
 
 func (ami *Amigo) Action(action string) (string, error) {
