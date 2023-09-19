@@ -3,6 +3,7 @@ package amigo
 import (
 	"fmt"
 	"log"
+	"strconv"
 	"strings"
 )
 
@@ -34,7 +35,7 @@ func devStateChange(event []string, ami *Amigo) {
 
 	ami.Hub.Broadcast <- Message{
 		Type: "devstatechange",
-		Data: ami.Devices[dev],
+		Data: []string{dev, ami.Devices[dev]},
 	}
 
 	ami.Hub.Broadcast <- Message{
@@ -48,7 +49,7 @@ func addBridge(event []string, ami *Amigo) {
 	fmt.Println("Bridge created")
 	ami.Hub.Broadcast <- Message{
 		Type: "brcountupdate",
-		Data: ami.Bridges,
+		Data: []string{"Bridge created", strconv.Itoa(ami.Bridges)},
 	}
 }
 
@@ -57,6 +58,6 @@ func rmBridge(event []string, ami *Amigo) {
 	fmt.Println("Bridge destroyed")
 	ami.Hub.Broadcast <- Message{
 		Type: "brcountupdate",
-		Data: ami.Bridges,
+		Data: []string{"Bridge destroyed", strconv.Itoa(ami.Bridges)},
 	}
 }

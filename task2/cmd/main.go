@@ -14,7 +14,7 @@ func main() {
 	signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM)
 
 	ami := amigo.NewManager()
-	ami.SetConf("192.168.0.11", "5038", "adel", "123")
+	ami.SetConf("10.1.0.228", "5038", "adel", "123")
 
 	evChan, err := ami.Start()
 	if err != nil {
