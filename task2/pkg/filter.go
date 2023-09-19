@@ -21,15 +21,19 @@ var filter = map[string]func([]string, *Amigo){
 func succAuth(event []string, ami *Amigo) {
 	dev, ip := trimInfo(event[6]), trimInfo(event[9])
 	log.Printf("Successful Authentication by %s from %s\n", dev, ip)
+
+	ami.Hub.Broadcast <- Message{
+		Type: "succauth",
+		Data: []string{dev, ip},
+	}
 }
 
 func devStateChange(event []string, ami *Amigo) {
 	dev, state := trimInfo(event[2]), trimInfo(event[3])
-	log.Printf("%s is now %s\n", dev, state)
+	ami.Devices[dev] = state
+	log.Printf("%s is now %s", dev, state)
 
-	if trimInfo(event[3]) == "NOT_INUSE" {
-		ami.Active++
-	} else if ami.Active > 0 {
+	if trimInfo(event[3]) == "UNAVAILABLE" {
 		ami.Active--
 	}
 

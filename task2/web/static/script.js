@@ -29,6 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
             case "devstatechange":
                 addEvent(`<a> ${jmsg.data[0]} </a> is now <a> ${jmsg.data[1]} </a>`, "phone")
                 break;
+            case "succauth":
+                addEvent(`Successful authentication by <a>${jmsg.data[0]}</a> from <a>${jmsg.data[1]}</a>`, "phone")
+                break;
             default:
                 console.log("ERROR: unrecognized request")
         }
