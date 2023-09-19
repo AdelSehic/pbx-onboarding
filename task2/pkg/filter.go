@@ -30,10 +30,14 @@ func succAuth(event []string, ami *Amigo) {
 
 func devStateChange(event []string, ami *Amigo) {
 	dev, state := trimInfo(event[2]), trimInfo(event[3])
+	prevstate := ami.Devices[dev]
 	ami.Devices[dev] = state
 	log.Printf("%s is now %s", dev, state)
 
-	if trimInfo(event[3]) == "UNAVAILABLE" {
+	if prevstate == "UNAVAILABLE" {
+		ami.Active++
+	}
+	if state == "UNAVAILABLE" {
 		ami.Active--
 	}
 
