@@ -1,4 +1,5 @@
 let socket = null;
+
 document.addEventListener("DOMContentLoaded", function () {
     socket = new WebSocket("ws://10.1.0.109:9999/");
     socket.onopen = (data) => {
@@ -32,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 addEvent(`<a> ${jmsg.data[0]} </a> is now <a> ${jmsg.data[1]} </a>`, "phone")
                 break;
             case "succauth":
-                addEvent(`Successful authentication by <a>${jmsg.data[0]}</a> from <a>${jmsg.data[1]}</a>`, "phone")
+                addEvent(`Successful authentication by <a>${jmsg.data[0]}</a> from <a>${jmsg.data[1]}</a>`, "key")
                 break;
             default:
                 console.log("ERROR: unrecognized request")
