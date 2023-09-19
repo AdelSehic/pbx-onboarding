@@ -27,6 +27,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("devs").innerHTML = jmsg.data
                 break;
             case "devstatechange":
+                const elem = document.getElementById(jmsg.data[0]);
+                elem.innerHTML = `<a>${jmsg.data[0]}</a> ${jmsg.data[1]}`;
                 addEvent(`<a> ${jmsg.data[0]} </a> is now <a> ${jmsg.data[1]} </a>`, "phone")
                 break;
             case "succauth":
@@ -39,11 +41,21 @@ document.addEventListener("DOMContentLoaded", function () {
 })
 
 function setup(data) {
-
-    console.log(data)
+    const template = document.getElementById('device')
+    const devlist = document.getElementById("devlist")
 
     document.getElementById("devs").innerHTML = data.activedev
     document.getElementById("chans").innerHTML = data.bridgecount
+
+    for (let index = 0; index < data.devicelist.length; index++) {
+        const element = data.devicelist[index];
+        let instance = document.importNode(template.content, true);
+        const newItem = document.createElement("div");
+        newItem.className = "ui segment";
+        newItem.id = element.name
+        newItem.innerHTML = `<a>${element.name}</a> ${element.status}`;
+        devlist.appendChild(newItem);
+    }
 }
 
 function addEvent(message, icon) {

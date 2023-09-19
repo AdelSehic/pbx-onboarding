@@ -10,50 +10,65 @@
         .ui.container {
             text-align: center;
             width: 600px;
-            margin-top: 100px;
-        }
-        h3 {
-            margin-top: 0px;
+            margin-top: 40px;
         }
         .ui.grid .column {
             background-clip: content-box;
+        }
+        body {
+            display: block;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .ui.segment {
+            max-height: 700px;
+            overflow: scroll;
         }
     </style>
 </head>
 
 <body>
-
-    <div class="ui container">
-
-        <div class="ui segment">
-            <div class="ui two column stackable center aligned grid">
-                <div class="ui vertical divider">ami</div>
-                <div class="middle aligned row">
-                    <div class="column">
-                        <div class="ui statistic">
-                            <div class="value" id="devs">
+    <div class="ui two column stackable center aligned grid">
+        <div class="ui container">
+            <div class="ui segments">
+                <div class="ui segment">
+                    <div class="ui two column stackable center aligned grid">
+                        <div class="ui vertical divider">ami</div>
+                        <div class="middle aligned row">
+                            <div class="column">
+                                <div class="ui statistic">
+                                    <div class="value" id="devs">
+                                    </div>
+                                    <div class="label">
+                                        Active Devices
+                                    </div>
+                                </div>
                             </div>
-                            <div class="label">
-                                Active Devices
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="ui statistic">
-                            <div class="value" id="chans">
-                            </div>
-                            <div class="label">
-                                Active channels
+                            <div class="column">
+                                <div class="ui statistic">
+                                    <div class="value" id="chans">
+                                    </div>
+                                    <div class="label">
+                                        Active channels
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="ui segment">
+                    <div class="ui feed" id="feed"></div>
+                </div>
             </div>
         </div>
-
-        <div class="ui feed" id="feed">
+        <div class="ui container">
+            <div class="ui raised segments" id="devlist">
+                <div class="ui secondary segment">
+                    <h3>Registered Devices</h1>
+                </div>
+            </div>
         </div>
-
     </div>
 </body>
 
@@ -64,12 +79,18 @@
         </div>
         <div class="content">
             <div class="date">
-                
+
             </div>
             <div class="summary">
 
             </div>
         </div>
+    </div>
+</template>
+
+<template id="device">
+    <div class="ui segment">
+
     </div>
 </template>
 
