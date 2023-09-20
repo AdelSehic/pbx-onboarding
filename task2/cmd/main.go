@@ -10,7 +10,7 @@ import (
 
 func main() {
 
-	stop := make(chan os.Signal, 1)
+	stop := make(chan os.Signal, 1) // hijacks kill singals so we can break our program cleanly
 	signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM)
 
 	ami := amigo.NewManager()

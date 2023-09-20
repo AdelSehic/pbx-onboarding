@@ -12,11 +12,13 @@ var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 }
 
+// Structured way of sending data to clients
 type Message struct {
 	Type string `json:"type"`
 	Data any    `json:"data"`
 }
 
+// Data from Amigo which is important to connected clients
 type FetchData struct {
 	RegisteredDevices int      `json:"regdev"`
 	ActiveDevices     int      `json:"activedev"`
@@ -29,6 +31,7 @@ type Device struct {
 	Status string `json:"status"`
 }
 
+// AMIData pulls important data from Amigo structure and prepares it for sending
 func (ami *Amigo) AMIData() *FetchData {
 	data := &FetchData{
 		RegisteredDevices: len(ami.Devices),
@@ -42,24 +45,24 @@ func (ami *Amigo) AMIData() *FetchData {
 	return data
 }
 
+// ConnectClient upgrades a client which has request to connect to us to a websocket and sends page initialization information through it
 func (ami *Amigo) ConnectClient(w http.ResponseWriter, r *http.Request) {
-	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
-	ws, err := upgrader.Upgrade(w, r, nil)
+	upgrader.CheckOrigin = func(r *http.Request) bool { return true } // CORS is unimportant here, accept all requests
+	ws, err := upgrader.Upgrade(w, r, nil)                            // function from Gorilla WS library
 	if err != nil {
 		fmt.Println(err.Error())
 		return
 	}
-	message := &Message{
-		Type: "setup",
-		Data: ami.AMIData(),
-	}
-	if err := ws.WriteJSON(message); err != nil {
+
+	if err := ws.WriteJSON(&Message{Type: "setup", Data: ami.AMIData()}); err != nil {
 		fmt.Println(err.Error())
 		return
-	}
-	ami.Hub.AddClient(ws)
+	} // send setup information to connected client and check for errors
+
+	ami.Hub.AddClient(ws) // add the client to our websocket hub
 }
 
+// StartWS starts listening to incoming connection requests
 func (ami *Amigo) StartWS() {
 	http.HandleFunc("/", ami.ConnectClient)
 	go http.ListenAndServe(":9999", nil)
