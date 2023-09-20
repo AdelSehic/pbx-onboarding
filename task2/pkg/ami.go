@@ -106,7 +106,9 @@ func (ami *Amigo) EventListener(ev chan []string) {
 // EventHandler takes events from EventListener and calls appropriate functions from handler
 func (ami *Amigo) EventHandler(resp []string) {
 	event := trimInfo(resp[0]) // pull event name from data
-	filter[event](resp, ami)   // call the coresponding function
+	if handler, exists := filter[event]; exists {
+		handler(resp, ami)
+	}
 }
 
 // Function used for initialization of Amigo structure. Calls for asterisk data through http to simplify the process
