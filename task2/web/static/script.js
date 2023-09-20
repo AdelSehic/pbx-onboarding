@@ -1,5 +1,17 @@
 let socket = null;
 
+const statusColor = {
+    UNKNOWN: 'gray',
+    NOT_INUSE: 'green',
+    INUSE: 'blue',
+    BUSY: 'red',
+    INVALID: 'purple',
+    UNAVAILABLE: 'orange',
+    RINGING: 'yellow',
+    RINGINUSE: 'orange',
+    ONHOLD: 'lightblue',
+};
+
 document.addEventListener("DOMContentLoaded", function () {
     socket = new WebSocket("ws://10.1.0.109:9999/");
     socket.onopen = (data) => {
@@ -28,8 +40,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("devs").innerHTML = jmsg.data
                 break;
             case "devstatechange":
-                const elem = document.getElementById(jmsg.data[0]);
-                elem.innerHTML = `<a>${jmsg.data[0]}</a> ${jmsg.data[1]}`;
+                var state = document.getElementById(`devstate_${jmsg.data[0]}`)
+                state.innerHTML = jmsg.data[1];
+                var classes = Array.from(state.classList);
+                classes.pop();
+                classes.push(statusColor[jmsg.data[1]])
+                state.className = classes.join(' ');
                 addEvent(`<a> ${jmsg.data[0]} </a> is now <a> ${jmsg.data[1]} </a>`, "phone")
                 break;
             case "succauth":
@@ -43,19 +59,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function setup(data) {
     const template = document.getElementById('device')
-    const devlist = document.getElementById("devlist")
+    const devlist = document.getElementById('devlist')
 
-    document.getElementById("devs").innerHTML = data.activedev
-    document.getElementById("chans").innerHTML = data.bridgecount
+    document.getElementById('devs').innerHTML = data.activedev
+    document.getElementById('chans').innerHTML = data.bridgecount
 
     for (let index = 0; index < data.devicelist.length; index++) {
         const element = data.devicelist[index];
-        let instance = document.importNode(template.content, true);
-        const newItem = document.createElement("div");
-        newItem.className = "ui segment";
-        newItem.id = element.name
-        newItem.innerHTML = `<a>${element.name}</a> ${element.status}`;
-        devlist.appendChild(newItem);
+
+        instance = document.importNode(template.content, true);
+
+        var devName = instance.querySelector('.ui.left.aligned.segment');
+        var devStat = instance.querySelector('.ui.inverted.secondary.segment');
+        devName.id = 'devname_' + element.name;
+        devStat.id = 'devstate_' + element.name;
+
+        devName.innerHTML = element.name;
+        devStat.innerHTML = element.status;
+
+        devStat.classList.add(statusColor[element.status])
+
+        devlist.appendChild(instance);
     }
 }
 
