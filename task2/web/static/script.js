@@ -92,7 +92,7 @@ function addEvent(message, icon) {
     instance.querySelector('.date').innerHTML = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     instance.querySelector('.summary').innerHTML = message;
 
-    instance.querySelector('.label').innerHTML = `<i class="${icon} tiny icon"></i>`;
+    instance.querySelector('.label').innerHTML = `<i class="${icon} tiny icon inverted"></i>`;
 
     feed.insertBefore(instance, feed.firstChild)
 }

@@ -23,7 +23,6 @@ func main() {
 	ami.StartWS()
 
 loop:
-
 	for {
 		select {
 		case event := <-evChan:
