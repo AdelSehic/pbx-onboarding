@@ -63,8 +63,8 @@ func (ami *Amigo) ConnectClient(w http.ResponseWriter, r *http.Request) {
 }
 
 // StartWS starts listening to incoming connection requests
-func (ami *Amigo) StartWS() {
+func (ami *Amigo) StartWS(addr string) {
 	http.HandleFunc("/", ami.ConnectClient)
-	go http.ListenAndServe(":9999", nil)
+	go http.ListenAndServe(addr, nil)
 	ami.Hub.Start()
 }

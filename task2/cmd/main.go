@@ -20,7 +20,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	ami.StartWS()
+	ami.StartWS(":9999")
 
 loop:
 	for {
