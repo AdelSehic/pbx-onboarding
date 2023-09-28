@@ -2,7 +2,6 @@ package ari
 
 import (
 	"fmt"
-	"time"
 
 	ariLib "github.com/CyCoreSystems/ari"
 	ariClient "github.com/CyCoreSystems/ari/client/native"
@@ -45,44 +44,21 @@ func (ari *Ari) Dial(dev ...string) {
 	}
 	defer call.Close()
 	ari.Calls[call.ID] = call
+	fmt.Println("call id: ", call.ID)
 
 	ari.AddToCall(call, dev...)
+	go call.Ring()
 
-	call.Ring()
-
-	time.Sleep(5 * time.Second)
-
-	ari.AddToCall(call, "102")
-	call.Ring()
-
-	time.Sleep(5 * time.Second)
-
-	// for chanCount >= min {
-	// 	for ch := range chans {
-	// 		data, _ := ari.Client.Channel().Data(ch.Key())
-	// 		if data == nil {
-	// 			delete(chans, ch)
-	// 			chanCount--
-	// 		}
-	// 	}
-	// }
+	ari.MonitorCall(call)
+	call.Close()
 }
 
-// func (ari *Ari) directCall(ext1, ext2 string) {
-// 	handle1, err := ari.Client.Channel().Create(ari.AppKey, ariLib.ChannelCreateRequest{
-// 		Endpoint: exten[ext1],
-// 		App:      ari.AppName,
-// 	})
-// 	if err != nil {
-// 		fmt.Printf("Error creating a channel to %s endpoint\n", ext1)
-// 		return
-// 	}
-// 	handle2, err := ari.Client.Channel().Create(ari.AppKey, ariLib.ChannelCreateRequest{
-// 		Endpoint: exten[ext1],
-// 		App:      ari.AppName,
-// 	})
-// 	if err != nil {
-// 		fmt.Printf("Error creating a channel to %s endpoint\n", ext2)
-// 		return
-// 	}
-// }
+func (ari *Ari) List() {
+	for _, c := range ari.Calls {
+		fmt.Println(c.ID)
+		for devs := range c.Channels {
+			data, _ := devs.Data()
+			fmt.Printf("\t%s\n", data.Name)
+		}
+	}
+}

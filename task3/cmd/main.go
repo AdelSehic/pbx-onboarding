@@ -28,7 +28,11 @@ func main() {
 		}
 		switch args[0] {
 		case "dial":
-			conn.Dial(args[1:]...)
+			go conn.Dial(args[1:]...)
+		case "list":
+			conn.List()
+		case "join":
+			conn.AddToCall(conn.Calls[args[1]], args[2:]...)
 		}
 	}
 }
