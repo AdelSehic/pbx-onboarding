@@ -2,7 +2,7 @@ package ari
 
 import (
 	"fmt"
-	"log"
+	"time"
 
 	ariLib "github.com/CyCoreSystems/ari"
 	ariClient "github.com/CyCoreSystems/ari/client/native"
@@ -13,12 +13,6 @@ type Ari struct {
 	AppKey  *ariLib.Key
 	Client  ariLib.Client
 	Calls   map[string]*Call
-}
-
-type Call struct {
-	ID         string
-	Conference bool
-	Channels   map[*ariLib.ChannelHandle]struct{}
 }
 
 func New(appName, address, user, password string) (*Ari, error) {
@@ -44,63 +38,34 @@ func New(appName, address, user, password string) (*Ari, error) {
 
 func (ari *Ari) Dial(dev ...string) {
 
-	min := 0
-	if len(dev) == 2 {
-		min = 2
-	} else if len(dev) > 2 {
-		min = 1
-	} else {
-		fmt.Println("must enter at least two exensions to dial")
+	call, err := ari.NewCall()
+	if err != nil {
+		fmt.Println("Failed to create a new call")
 		return
 	}
+	defer call.Close()
+	ari.Calls[call.ID] = call
 
-	chanCount := 0
-	chans := make(map[*ariLib.ChannelHandle]struct{}, len(dev))
-	bridge, err := ari.Client.Bridge().Create(ari.AppKey, "", "")
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	ari.AddToCall(call, dev...)
 
-	defer func() { // exit cleanup
-		for ch := range chans {
-			ch.Hangup()
-		}
-		bridge.Delete()
-	}()
+	call.Ring()
 
-	for i := range dev {
-		handle, err := ari.Client.Channel().Create(ari.AppKey, ariLib.ChannelCreateRequest{
-			Endpoint: exten[dev[i]],
-			App:      ari.AppName,
-		})
-		if err != nil {
-			fmt.Printf("Error creating a channel to %s endpoint\n", dev[i])
-			if min == 2 {
-				return
-			}
-			continue
-		}
-		if err := handle.Dial("", 15); err != nil {
-			fmt.Printf("Error dialing %s\n", dev[i])
-			if min == 2 {
-				return
-			}
-			continue
-		}
-		bridge.AddChannel(handle.ID())
-		chans[handle] = struct{}{}
-		chanCount++
-	}
+	time.Sleep(5 * time.Second)
 
-	for chanCount >= min {
-		for ch := range chans {
-			data, _ := ari.Client.Channel().Data(ch.Key())
-			if data == nil {
-				delete(chans, ch)
-				chanCount--
-			}
-		}
-	}
+	ari.AddToCall(call, "102")
+	call.Ring()
+
+	time.Sleep(5 * time.Second)
+
+	// for chanCount >= min {
+	// 	for ch := range chans {
+	// 		data, _ := ari.Client.Channel().Data(ch.Key())
+	// 		if data == nil {
+	// 			delete(chans, ch)
+	// 			chanCount--
+	// 		}
+	// 	}
+	// }
 }
 
 // func (ari *Ari) directCall(ext1, ext2 string) {

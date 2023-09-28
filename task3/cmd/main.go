@@ -22,13 +22,12 @@ func main() {
 		read, _ := reader.ReadString('\n')
 		input := strings.Trim(read, "\n")
 		args := strings.Split(input, " ")
-		fmt.Println(args)
 		if len(args) < 1 {
 			fmt.Println("bad input")
 			continue
 		}
 		switch args[0] {
-		case "dail":
+		case "dial":
 			conn.Dial(args[1:]...)
 		}
 	}
