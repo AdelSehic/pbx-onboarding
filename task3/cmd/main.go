@@ -28,9 +28,8 @@ func main() {
 			continue
 		}
 		switch args[0] {
-		case "call":
-			fmt.Println("calling")
-			conn.Call(args[1:]...)
+		case "dail":
+			conn.Dial(args[1:]...)
 		}
 	}
 }
