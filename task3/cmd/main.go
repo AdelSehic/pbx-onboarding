@@ -1,36 +1,36 @@
 package main
 
 import (
+	ari "ari/pkg"
+	"bufio"
 	"fmt"
 	"log"
-
-	ari "github.com/CyCoreSystems/ari"
-	ariClient "github.com/CyCoreSystems/ari/client/native"
+	"os"
+	"strings"
 )
 
 func main() {
-	client, err := ariClient.Connect(&ariClient.Options{
-		Application:  "blondie",
-		URL:          "http://10.1.0.228:8088/ari",
-		WebsocketURL: "ws://10.1.0.228:8088/ari/events",
-		Username:     "asterisk",
-		Password:     "test123",
-	})
+
+	conn, err := ari.New("blondie", "192.168.0.16:8088", "asterisk", "test123")
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 
-	key := ari.AppKey(client.ApplicationName())
-
-	keys, err := client.Endpoint().List(key)
-	if err != nil {
-		log.Fatal(err.Error())
+	reader := bufio.NewReader(os.Stdin)
+	for {
+		fmt.Scanln(reader)
+		read, _ := reader.ReadString('\n')
+		input := strings.Trim(read, "\n")
+		args := strings.Split(input, " ")
+		fmt.Println(args)
+		if len(args) < 1 {
+			fmt.Println("bad input")
+			continue
+		}
+		switch args[0] {
+		case "call":
+			fmt.Println("calling")
+			conn.Call(args[1:]...)
+		}
 	}
-
-	for _, key := range keys {
-		data, _ := client.Endpoint().Data(key)
-		fmt.Println(data)
-	}
-
-	// client.Bridge().Create()
 }

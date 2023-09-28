@@ -13,7 +13,7 @@ const statusColor = {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-    socket = new WebSocket("ws://10.1.0.109:9999/");
+    socket = new WebSocket("ws://localhost:9999/");
     socket.onopen = (data) => {
         console.log("Websocket connection established")
     }
