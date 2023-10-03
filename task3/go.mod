@@ -2,8 +2,9 @@ module ari
 
 go 1.20
 
+require github.com/CyCoreSystems/ari v4.8.4+incompatible
+
 require (
-	github.com/CyCoreSystems/ari v4.8.4+incompatible // indirect
 	github.com/go-stack/stack v1.8.1 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/inconshreveable/log15 v2.16.0+incompatible // indirect
