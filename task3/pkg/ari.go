@@ -56,7 +56,7 @@ func (ari *Ari) List() {
 		fmt.Println(c.ID)
 		for devs := range c.Channels {
 			data, _ := devs.Data()
-			fmt.Printf("\t%s\n", data.Name)
+			fmt.Printf("\t- %s\n", data.Name)
 		}
 	}
 }
