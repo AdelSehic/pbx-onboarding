@@ -18,12 +18,10 @@ type Call struct {
 
 func (ari *Ari) NewCall() (*Call, error) {
 
-	bridge, err := ari.Client.Bridge().Create(ari.AppKey, "", "")
+	bridge, err := ari.Client.Bridge().Create(ari.AppKey.New("", ""), "", "")
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println(bridge.Key().ID)
 
 	call := &Call{
 		ID:         bridge.ID(),
