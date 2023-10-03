@@ -11,7 +11,7 @@ import (
 
 func main() {
 
-	conn, err := ari.New("blondie", "192.168.0.16:8088", "asterisk", "test123")
+	conn, err := ari.New("blondie", "10.1.0.228:8088", "asterisk", "test123")
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -32,7 +32,17 @@ func main() {
 		case "list":
 			conn.List()
 		case "join":
+			if len(args) <= 2 {
+				fmt.Println(`invalid format, propper format is "join <callid> clients..." `)
+				continue
+			}
+			if _, ok := conn.Calls[args[1]]; !ok {
+				fmt.Println("specified call ID does not exist")
+				continue
+			}
 			conn.AddToCall(conn.Calls[args[1]], args[2:]...)
+		default:
+			fmt.Println("Invalid option")
 		}
 	}
 }

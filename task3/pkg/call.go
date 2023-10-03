@@ -23,8 +23,10 @@ func (ari *Ari) NewCall() (*Call, error) {
 		return nil, err
 	}
 
+	fmt.Println(bridge.Key().ID)
+
 	call := &Call{
-		ID:         bridge.Key().ID,
+		ID:         bridge.ID(),
 		Bridge:     bridge,
 		Conference: false,
 		ChanCount:  0,
@@ -78,9 +80,10 @@ func (ari *Ari) MonitorCall(call *Call) {
 	}
 }
 
-func (call *Call) Close() {
+func (ari *Ari) CloseCall(call *Call) {
 	for ch := range call.Channels {
 		ch.Hangup()
 	}
 	call.Bridge.Delete()
+	delete(ari.Calls, call.ID)
 }

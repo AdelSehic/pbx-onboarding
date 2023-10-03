@@ -42,15 +42,13 @@ func (ari *Ari) Dial(dev ...string) {
 		fmt.Println("Failed to create a new call")
 		return
 	}
-	defer call.Close()
 	ari.Calls[call.ID] = call
-	fmt.Println("call id: ", call.ID)
 
 	ari.AddToCall(call, dev...)
 	go call.Ring()
 
 	ari.MonitorCall(call)
-	call.Close()
+	ari.CloseCall(call)
 }
 
 func (ari *Ari) List() {
