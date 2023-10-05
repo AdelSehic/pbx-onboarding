@@ -45,10 +45,7 @@ func (ari *Ari) Dial(dev ...string) {
 	ari.Calls[call.ID] = call
 
 	ari.AddToCall(call, dev...)
-	go call.Ring()
-
-	ari.MonitorCall(call)
-	ari.CloseCall(call)
+	go ari.MonitorCall(call)
 }
 
 func (ari *Ari) List() {

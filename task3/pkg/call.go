@@ -55,6 +55,8 @@ func (ari *Ari) AddToCall(call *Call, dev ...string) {
 			call.MinActive = 1
 		}
 	}
+
+	call.Ring()
 }
 
 func (call *Call) Ring() {

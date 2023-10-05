@@ -22,7 +22,7 @@ func main() {
 
 		switch args[0] {
 		case "dial":
-			go ari.Dial(args[1:]...)
+			ari.Dial(args[1:]...)
 		case "list":
 			ari.List()
 		case "join":
