@@ -66,6 +66,18 @@ func (call *Call) Ring() {
 	}
 }
 
+func (ari *Ari) JoinCall(args []string) {
+	if len(args) <= 2 {
+		fmt.Println(`invalid format, propper format is "join <callid> clients..." `)
+		return
+	}
+	if _, ok := ari.Calls[args[1]]; !ok {
+		fmt.Println("specified call ID does not exist")
+		return
+	}
+	ari.AddToCall(ari.Calls[args[1]], args[2:]...)
+}
+
 func (ari *Ari) MonitorCall(call *Call) {
 	for call.ChanCount >= call.MinActive {
 		for ch := range call.Channels {

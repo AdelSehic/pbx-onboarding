@@ -18,31 +18,28 @@ func main() {
 
 	reader := bufio.NewReader(os.Stdin)
 	for {
-		fmt.Scanln(reader)
-		read, _ := reader.ReadString('\n')
-		input := strings.Trim(read, "\n")
-		args := strings.Split(input, " ")
-		if len(args) < 1 {
-			fmt.Println("bad input")
-			continue
-		}
+		args := getInput(*reader)
+
 		switch args[0] {
 		case "dial":
 			go ari.Dial(args[1:]...)
 		case "list":
 			ari.List()
 		case "join":
-			if len(args) <= 2 {
-				fmt.Println(`invalid format, propper format is "join <callid> clients..." `)
-				continue
-			}
-			if _, ok := ari.Calls[args[1]]; !ok {
-				fmt.Println("specified call ID does not exist")
-				continue
-			}
-			ari.AddToCall(ari.Calls[args[1]], args[2:]...)
+			ari.JoinCall(args)
 		default:
 			fmt.Println("Invalid option")
 		}
 	}
+}
+
+func getInput(reader bufio.Reader) []string {
+	fmt.Scanln(reader)
+	read, _ := reader.ReadString('\n')
+	input := strings.Trim(read, "\n")
+	args := strings.Split(input, " ")
+	if len(args) < 1 {
+		return nil
+	}
+	return args
 }
