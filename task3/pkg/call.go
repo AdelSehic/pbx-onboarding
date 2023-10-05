@@ -16,6 +16,9 @@ type Call struct {
 	MinActive  int
 }
 
+const maxParticipants = 16
+const globalTimeout = 15
+
 func (ari *Ari) NewCall() (*Call, error) {
 
 	bridge, err := ari.Client.Bridge().Create(ari.AppKey.New("", ""), "", "")
@@ -29,7 +32,7 @@ func (ari *Ari) NewCall() (*Call, error) {
 		Conference: false,
 		ChanCount:  0,
 		Channels:   make(map[*ariLib.ChannelHandle]struct{}),
-		ToRing:     make(chan *ariLib.ChannelHandle, 16),
+		ToRing:     make(chan *ariLib.ChannelHandle, maxParticipants),
 		MinActive:  2,
 	}
 
@@ -59,7 +62,7 @@ func (ari *Ari) AddToCall(call *Call, dev ...string) {
 
 func (call *Call) Ring() {
 	for ch := range call.ToRing {
-		if err := ch.Dial("Asterisk REST interface", 15); err != nil {
+		if err := ch.Dial("Asterisk REST interface", globalTimeout); err != nil {
 			fmt.Printf("error on ringing %s\n", ch.Key().ID)
 			continue
 		}
