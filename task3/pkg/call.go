@@ -7,13 +7,12 @@ import (
 )
 
 type Call struct {
-	ID         string
-	Conference bool
-	ChanCount  int
-	Bridge     *ariLib.BridgeHandle
-	Channels   map[*ariLib.ChannelHandle]struct{}
-	ToRing     chan *ariLib.ChannelHandle
-	MinActive  int
+	ID        string
+	ChanCount int
+	Bridge    *ariLib.BridgeHandle
+	Channels  map[*ariLib.ChannelHandle]struct{}
+	ToRing    chan *ariLib.ChannelHandle
+	MinActive int
 }
 
 const maxParticipants = 16
@@ -27,13 +26,12 @@ func (ari *Ari) NewCall() (*Call, error) {
 	}
 
 	call := &Call{
-		ID:         bridge.ID(),
-		Bridge:     bridge,
-		Conference: false,
-		ChanCount:  0,
-		Channels:   make(map[*ariLib.ChannelHandle]struct{}),
-		ToRing:     make(chan *ariLib.ChannelHandle, maxParticipants),
-		MinActive:  2,
+		ID:        bridge.ID(),
+		Bridge:    bridge,
+		ChanCount: 0,
+		Channels:  make(map[*ariLib.ChannelHandle]struct{}),
+		ToRing:    make(chan *ariLib.ChannelHandle, maxParticipants),
+		MinActive: 2,
 	}
 
 	return call, nil
@@ -54,7 +52,6 @@ func (ari *Ari) AddToCall(call *Call, dev ...string) {
 		call.Channels[handle] = struct{}{}
 		call.ChanCount++
 		if call.ChanCount > 2 {
-			call.Conference = true
 			call.MinActive = 1
 		}
 	}
@@ -82,15 +79,18 @@ func (ari *Ari) JoinCall(args []string) {
 }
 
 func (ari *Ari) MonitorCall(call *Call) {
-	for call.ChanCount >= call.MinActive {
-		for ch := range call.Channels {
-			data, _ := ari.Client.Channel().Data(ch.Key())
-			if data == nil {
-				delete(call.Channels, ch)
-				call.ChanCount--
-			}
+
+	sub := call.Bridge.Subscribe(ariLib.Events.ChannelLeftBridge).Events()
+
+	for {
+		<-sub
+		call.ChanCount--
+		if call.ChanCount < call.MinActive {
+			break
 		}
 	}
+
+	ari.CloseCall(call)
 }
 
 func (ari *Ari) CloseCall(call *Call) {
