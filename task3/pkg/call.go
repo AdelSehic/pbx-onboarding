@@ -11,7 +11,7 @@ type Call struct {
 	ID        string
 	ChanCount int
 	Bridge    *ariLib.BridgeHandle
-	Channels  map[*ariLib.ChannelHandle]struct{}
+	Channels  map[string]*ariLib.ChannelHandle
 	MinActive int
 }
 
@@ -28,7 +28,7 @@ func (ari *Ari) NewCall() (*Call, error) {
 		ID:        bridge.ID(),
 		Bridge:    bridge,
 		ChanCount: 0,
-		Channels:  make(map[*ariLib.ChannelHandle]struct{}),
+		Channels:  make(map[string]*ariLib.ChannelHandle),
 		MinActive: 2,
 	}
 
@@ -49,15 +49,13 @@ func (ari *Ari) AddToCall(call *Call, dev ...string) {
 			continue
 		}
 		call.Bridge.AddChannel(handle.ID())
-		call.Channels[handle] = struct{}{}
+		call.Channels[handle.ID()] = handle
 		devs = append(devs, handle)
 		call.ChanCount++
 		if call.ChanCount > 2 {
 			call.MinActive = 1
 		}
 	}
-
-	fmt.Println(call.ChanCount, call.MinActive)
 
 	if call.ChanCount < call.MinActive {
 		fmt.Println("Not enough participants to start the call, aborting")
@@ -103,7 +101,7 @@ func (ari *Ari) MonitorCall(call *Call) {
 }
 
 func (ari *Ari) CloseCall(call *Call) {
-	for ch := range call.Channels {
+	for _, ch := range call.Channels {
 		ch.Hangup()
 	}
 	call.Bridge.Delete()

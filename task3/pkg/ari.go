@@ -51,9 +51,9 @@ func (ari *Ari) Dial(dev ...string) {
 func (ari *Ari) List() {
 	for _, c := range ari.Calls {
 		fmt.Println(c.ID)
-		for devs := range c.Channels {
+		for _, devs := range c.Channels {
 			data, _ := devs.Data()
-			fmt.Printf("\t- %s\n", data.Name)
+			fmt.Printf("\t- %s : %s\n", data.Name, data.Key)
 		}
 	}
 }
