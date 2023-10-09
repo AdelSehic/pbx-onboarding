@@ -3,6 +3,7 @@ package ari
 import (
 	"fmt"
 
+	"github.com/CyCoreSystems/ari"
 	ariLib "github.com/CyCoreSystems/ari"
 )
 
@@ -11,11 +12,9 @@ type Call struct {
 	ChanCount int
 	Bridge    *ariLib.BridgeHandle
 	Channels  map[*ariLib.ChannelHandle]struct{}
-	ToRing    chan *ariLib.ChannelHandle
 	MinActive int
 }
 
-const maxParticipants = 16
 const globalTimeout = 15
 
 func (ari *Ari) NewCall() (*Call, error) {
@@ -30,7 +29,6 @@ func (ari *Ari) NewCall() (*Call, error) {
 		Bridge:    bridge,
 		ChanCount: 0,
 		Channels:  make(map[*ariLib.ChannelHandle]struct{}),
-		ToRing:    make(chan *ariLib.ChannelHandle, maxParticipants),
 		MinActive: 2,
 	}
 
@@ -38,6 +36,9 @@ func (ari *Ari) NewCall() (*Call, error) {
 }
 
 func (ari *Ari) AddToCall(call *Call, dev ...string) {
+
+	devs := make([]*ariLib.ChannelHandle, 0, 10)
+
 	for i := range dev {
 		handle, err := ari.Client.Channel().Create(ari.AppKey, ariLib.ChannelCreateRequest{
 			Endpoint: exten[dev[i]],
@@ -47,20 +48,26 @@ func (ari *Ari) AddToCall(call *Call, dev ...string) {
 			fmt.Printf("Error creating a channel to %s endpoint\n", dev[i])
 			continue
 		}
-		call.ToRing <- handle
 		call.Bridge.AddChannel(handle.ID())
 		call.Channels[handle] = struct{}{}
+		devs = append(devs, handle)
 		call.ChanCount++
 		if call.ChanCount > 2 {
 			call.MinActive = 1
 		}
 	}
 
-	call.Ring()
+	fmt.Println(call.ChanCount, call.MinActive)
+
+	if call.ChanCount < call.MinActive {
+		fmt.Println("Not enough participants to start the call, aborting")
+		return
+	}
+	call.Ring(devs)
 }
 
-func (call *Call) Ring() {
-	for ch := range call.ToRing {
+func (call *Call) Ring(devs []*ari.ChannelHandle) {
+	for _, ch := range devs {
 		if err := ch.Dial("Asterisk REST interface", globalTimeout); err != nil {
 			fmt.Printf("error on ringing %s\n", ch.Key().ID)
 			continue
