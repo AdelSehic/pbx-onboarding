@@ -90,8 +90,9 @@ func (ari *Ari) MonitorCall(call *Call) {
 	sub := call.Bridge.Subscribe(ariLib.Events.ChannelLeftBridge).Events()
 
 	for {
-		<-sub
+		event := <-sub
 		call.ChanCount--
+		delete(call.Channels, event.Keys().First().ID)
 		if call.ChanCount < call.MinActive {
 			break
 		}
