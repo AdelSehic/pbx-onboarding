@@ -8,11 +8,11 @@ import (
 )
 
 type Call struct {
-	ID        string
-	ChanCount int
-	Bridge    *ariLib.BridgeHandle
-	Channels  map[string]*ariLib.ChannelHandle
-	MinActive int
+	ID                        string
+	ChanCount                 int
+	Bridge                    *ariLib.BridgeHandle
+	Channels                  map[string]*ariLib.ChannelHandle
+	MinimumActiveParticipants int
 }
 
 const globalTimeout = 15
@@ -25,11 +25,11 @@ func (ari *Ari) NewCall() (*Call, error) {
 	}
 
 	call := &Call{
-		ID:        bridge.ID(),
-		Bridge:    bridge,
-		ChanCount: 0,
-		Channels:  make(map[string]*ariLib.ChannelHandle),
-		MinActive: 2,
+		ID:                        bridge.ID(),
+		Bridge:                    bridge,
+		ChanCount:                 0,
+		Channels:                  make(map[string]*ariLib.ChannelHandle),
+		MinimumActiveParticipants: 2,
 	}
 
 	return call, nil
@@ -53,11 +53,11 @@ func (ari *Ari) AddToCall(call *Call, dev ...string) {
 		devs = append(devs, handle)
 		call.ChanCount++
 		if call.ChanCount > 2 {
-			call.MinActive = 1
+			call.MinimumActiveParticipants = 1
 		}
 	}
 
-	if call.ChanCount < call.MinActive {
+	if call.ChanCount < call.MinimumActiveParticipants {
 		fmt.Println("Not enough participants to start the call, aborting")
 		return
 	}
@@ -93,7 +93,7 @@ func (ari *Ari) MonitorCall(call *Call) {
 		event := <-sub
 		call.ChanCount--
 		delete(call.Channels, event.Keys().First().ID)
-		if call.ChanCount < call.MinActive {
+		if call.ChanCount < call.MinimumActiveParticipants {
 			break
 		}
 	}
