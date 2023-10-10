@@ -1,6 +1,7 @@
 package main
 
 import (
+	config "ari/configs"
 	ari "ari/pkg"
 	"bufio"
 	"context"
@@ -16,18 +17,21 @@ func main() {
 
 	interrupt := make(chan os.Signal, 1) // hijacks kill singals so we can break our program cleanly
 	signal.Notify(interrupt, syscall.SIGINT, syscall.SIGTERM)
+	ctx, stop := context.WithCancel(context.Background())
 
-	ari, err := ari.New("blondie", "10.1.0.228:8088", "asterisk", "test123")
+	cfg, err := config.LoadConfig("../configs/config.json")
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 
-	ctx, stop := context.WithCancel(context.Background())
-	input := getInput()
+	ari, err := ari.New(cfg.GetConfig())
+	if err != nil {
+		log.Fatal(err.Error())
+	}
 
+	input := getInput()
 loop:
 	for {
-
 		select {
 		case args := <-input:
 			switch args[0] {

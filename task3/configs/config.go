@@ -3,20 +3,20 @@ package config
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net"
 	"os"
 )
 
 type Config struct {
+	Appname  string
 	IP       string
 	Port     string
 	Username string
 	Password string
 }
 
-func (cfg *Config) PrintCfg() {
-	fmt.Printf("ip : %s\nport : %s\nuser : %s\npass : %s\n", cfg.IP, cfg.Port, cfg.Username, cfg.Password)
+func (cfg *Config) GetConfig() (string, string, string, string) {
+	return cfg.Appname, cfg.IP + ":" + cfg.Port, cfg.Username, cfg.Password
 }
 
 // MakeConfig sets up ari configuration from provided parameters
