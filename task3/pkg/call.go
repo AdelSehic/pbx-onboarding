@@ -1,6 +1,7 @@
 package ari
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/CyCoreSystems/ari"
@@ -87,16 +88,23 @@ func (ari *Ari) JoinCall(args []string) {
 	ari.AddToCall(ari.Calls[args[1]], args[2:]...)
 }
 
-func (ari *Ari) MonitorCall(call *Call) {
+func (ari *Ari) MonitorCall(ctx context.Context, call *Call) {
 
+	ari.Wg.Add(1)
 	sub := call.Bridge.Subscribe(ariLib.Events.ChannelLeftBridge).Events()
 
+loop:
 	for {
-		event := <-sub
-		call.ChanCount--
-		delete(call.Channels, event.Keys().First().ID)
-		if call.ChanCount < call.MinimumActiveParticipants {
-			break
+		select {
+		case event := <-sub:
+			call.ChanCount--
+			delete(call.Channels, event.Keys().First().ID)
+			if call.ChanCount < call.MinimumActiveParticipants {
+				break loop
+			}
+		case <-ctx.Done():
+			fmt.Printf("Breaking the call %s\n", call.ID)
+			break loop
 		}
 	}
 
@@ -109,4 +117,5 @@ func (ari *Ari) CloseCall(call *Call) {
 	}
 	call.Bridge.Delete()
 	delete(ari.Calls, call.ID)
+	ari.Wg.Done()
 }

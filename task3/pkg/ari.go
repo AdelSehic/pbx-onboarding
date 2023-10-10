@@ -1,7 +1,9 @@
 package ari
 
 import (
+	"context"
 	"fmt"
+	"sync"
 
 	ariLib "github.com/CyCoreSystems/ari"
 	ariClient "github.com/CyCoreSystems/ari/client/native"
@@ -12,6 +14,7 @@ type Ari struct {
 	AppKey  *ariLib.Key
 	Client  ariLib.Client
 	Calls   map[string]*Call
+	Wg      *sync.WaitGroup
 }
 
 func New(appName, address, user, password string) (*Ari, error) {
@@ -32,10 +35,11 @@ func New(appName, address, user, password string) (*Ari, error) {
 		AppKey:  appKey,
 		Client:  client,
 		Calls:   make(map[string]*Call),
+		Wg:      &sync.WaitGroup{},
 	}, nil
 }
 
-func (ari *Ari) Dial(dev ...string) {
+func (ari *Ari) Dial(ctx context.Context, dev ...string) {
 
 	call, err := ari.NewCall()
 	if err != nil {
@@ -45,7 +49,7 @@ func (ari *Ari) Dial(dev ...string) {
 	ari.Calls[call.ID] = call
 
 	ari.AddToCall(call, dev...)
-	go ari.MonitorCall(call)
+	go ari.MonitorCall(ctx, call)
 }
 
 func (ari *Ari) List() {
