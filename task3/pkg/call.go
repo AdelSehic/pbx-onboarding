@@ -73,8 +73,10 @@ func (call *Call) Ring(devs []*ari.ChannelHandle) {
 	}
 }
 
+const staticArguments = 2
+
 func (ari *Ari) JoinCall(args []string) {
-	if len(args) <= 2 {
+	if len(args) <= staticArguments {
 		fmt.Println(`invalid format, propper format is "join <callid> clients..." `)
 		return
 	}
