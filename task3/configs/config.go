@@ -7,6 +7,7 @@ import (
 	"os"
 )
 
+// simple struct for loading JSON config
 type Config struct {
 	Appname  string
 	IP       string
@@ -15,6 +16,7 @@ type Config struct {
 	Password string
 }
 
+// return config in a format for suitable ami
 func (cfg *Config) GetConfig() (string, string, string, string) {
 	return cfg.Appname, cfg.IP + ":" + cfg.Port, cfg.Username, cfg.Password
 }

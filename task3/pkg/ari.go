@@ -9,6 +9,7 @@ import (
 	ariClient "github.com/CyCoreSystems/ari/client/native"
 )
 
+// Ari struct for holding all the necessarhy information for call monitoring and managing
 type Ari struct {
 	AppName string
 	AppKey  *ariLib.Key
@@ -17,6 +18,7 @@ type Ari struct {
 	Wg      *sync.WaitGroup
 }
 
+// New initializes an Ari struct, requires a configuration to connect to Asterisk right away
 func New(appName, address, user, password string) (*Ari, error) {
 	client, err := ariClient.Connect(&ariClient.Options{
 		Application:  appName,
@@ -39,6 +41,7 @@ func New(appName, address, user, password string) (*Ari, error) {
 	}, nil
 }
 
+// Dial creates a new call with specified clients added right away
 func (ari *Ari) Dial(ctx context.Context, dev ...string) {
 
 	call, err := ari.NewCall()
@@ -52,6 +55,7 @@ func (ari *Ari) Dial(ctx context.Context, dev ...string) {
 	go ari.MonitorCall(ctx, call)
 }
 
+// List prints all active calls and their participants
 func (ari *Ari) List() {
 	for _, c := range ari.Calls {
 		fmt.Println(c.ID)

@@ -17,19 +17,19 @@ func main() {
 
 	interrupt := make(chan os.Signal, 1) // hijacks kill singals so we can break our program cleanly
 	signal.Notify(interrupt, syscall.SIGINT, syscall.SIGTERM)
-	ctx, stop := context.WithCancel(context.Background())
+	ctx, stop := context.WithCancel(context.Background()) // context for propagating stop signal to functions
 
-	cfg, err := config.LoadConfig("../configs/config.json")
+	cfg, err := config.LoadConfig("../configs/config.json") // load config from file
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 
-	ari, err := ari.New(cfg.GetConfig())
+	ari, err := ari.New(cfg.GetConfig()) // send loaded config to ari
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 
-	input := getInput()
+	input := getInput() // define stdin variable
 loop:
 	for {
 		select {
@@ -50,7 +50,7 @@ loop:
 			break loop
 		}
 	}
-	ari.Wg.Wait()
+	ari.Wg.Wait() // wait for all calls to be stopped before closing out
 }
 
 func getInput() chan []string {

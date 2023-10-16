@@ -8,6 +8,10 @@ import (
 	ariLib "github.com/CyCoreSystems/ari"
 )
 
+const globalTimeout = 15
+const staticArguments = 2
+
+// Call struct that holds necessary information for calls to be managed to propperly
 type Call struct {
 	ID                        string
 	ChanCount                 int
@@ -16,8 +20,7 @@ type Call struct {
 	MinimumActiveParticipants int
 }
 
-const globalTimeout = 15
-
+// NewCall initializes a call struct
 func (ari *Ari) NewCall() (*Call, error) {
 
 	bridge, err := ari.Client.Bridge().Create(ari.AppKey.New("", ""), "", "")
@@ -36,6 +39,7 @@ func (ari *Ari) NewCall() (*Call, error) {
 	return call, nil
 }
 
+// AddToCall takes an existing call and adds new clients to it
 func (ari *Ari) AddToCall(call *Call, dev ...string) {
 
 	devs := make([]*ariLib.ChannelHandle, 0, 10)
@@ -65,6 +69,7 @@ func (ari *Ari) AddToCall(call *Call, dev ...string) {
 	call.Ring(devs)
 }
 
+// Ring rings all channels that were recently added but not called yet
 func (call *Call) Ring(devs []*ari.ChannelHandle) {
 	for _, ch := range devs {
 		if err := ch.Dial("Asterisk REST interface", globalTimeout); err != nil {
@@ -74,8 +79,7 @@ func (call *Call) Ring(devs []*ari.ChannelHandle) {
 	}
 }
 
-const staticArguments = 2
-
+// JoinCall takes existing call's ID as a first parameter and adds all specified clients to it
 func (ari *Ari) JoinCall(args []string) {
 	if len(args) <= staticArguments {
 		fmt.Println(`invalid format, propper format is "join <callid> clients..." `)
@@ -88,9 +92,10 @@ func (ari *Ari) JoinCall(args []string) {
 	ari.AddToCall(ari.Calls[args[1]], args[2:]...)
 }
 
+// MonitorCall - the main function of our program, it monitors a call for leave events and closes it when it makes sense
 func (ari *Ari) MonitorCall(ctx context.Context, call *Call) {
 
-	ari.Wg.Add(1)
+	ari.Wg.Add(1) // add anoth
 	sub := call.Bridge.Subscribe(ariLib.Events.ChannelLeftBridge).Events()
 
 loop:
@@ -111,6 +116,7 @@ loop:
 	ari.CloseCall(call)
 }
 
+// CloseCall shuts down the specified call cleanly
 func (ari *Ari) CloseCall(call *Call) {
 	for _, ch := range call.Channels {
 		ch.Hangup()
