@@ -3,6 +3,7 @@ package ari
 import (
 	"context"
 	"fmt"
+	"sync"
 
 	"github.com/CyCoreSystems/ari"
 	ariLib "github.com/CyCoreSystems/ari"
@@ -10,6 +11,7 @@ import (
 
 const globalTimeout = 15
 const staticArguments = 2
+const maxClientsToCall = 10
 
 // Call struct that holds necessary information for calls to be managed to propperly
 type Call struct {
@@ -18,6 +20,7 @@ type Call struct {
 	Bridge                    *ariLib.BridgeHandle
 	Channels                  map[string]*ariLib.ChannelHandle
 	MinimumActiveParticipants int
+	mu                        sync.Mutex
 }
 
 // NewCall initializes a call struct
@@ -34,6 +37,7 @@ func (ari *Ari) NewCall() (*Call, error) {
 		ChanCount:                 0,
 		Channels:                  make(map[string]*ariLib.ChannelHandle),
 		MinimumActiveParticipants: 2,
+		mu:                        sync.Mutex{},
 	}
 
 	return call, nil
@@ -42,7 +46,10 @@ func (ari *Ari) NewCall() (*Call, error) {
 // AddToCall takes an existing call and adds new clients to it
 func (ari *Ari) AddToCall(call *Call, dev ...string) {
 
-	devs := make([]*ariLib.ChannelHandle, 0, 10)
+	devs := make([]*ariLib.ChannelHandle, 0, maxClientsToCall)
+
+	call.mu.Lock()
+	defer call.mu.Unlock()
 
 	for i := range dev {
 		handle, err := ari.Client.Channel().Create(ari.AppKey, ariLib.ChannelCreateRequest{
@@ -95,15 +102,17 @@ func (ari *Ari) JoinCall(args []string) {
 // MonitorCall - the main function of our program, it monitors a call for leave events and closes it when it makes sense
 func (ari *Ari) MonitorCall(ctx context.Context, call *Call) {
 
-	ari.Wg.Add(1) // add anoth
+	ari.Wg.Add(1) // add another call monitor to waitgroup sync
 	sub := call.Bridge.Subscribe(ariLib.Events.ChannelLeftBridge).Events()
 
 loop:
 	for {
 		select {
 		case event := <-sub:
+			call.mu.Lock()
 			call.ChanCount--
 			delete(call.Channels, event.Keys().First().ID)
+			call.mu.Unlock()
 			if call.ChanCount < call.MinimumActiveParticipants {
 				break loop
 			}
@@ -118,6 +127,10 @@ loop:
 
 // CloseCall shuts down the specified call cleanly
 func (ari *Ari) CloseCall(call *Call) {
+
+	call.mu.Lock()
+	defer call.mu.Unlock()
+
 	for _, ch := range call.Channels {
 		ch.Hangup()
 	}
